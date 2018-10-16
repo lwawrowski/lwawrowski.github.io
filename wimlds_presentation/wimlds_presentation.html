@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stwórz sobie przeciwnika</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Łukasz Wawrowski" />
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <link rel="stylesheet" href="default-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Stwórz sobie przeciwnika
+## czyli sztuczna inteligencja w grach turowych
+### Łukasz Wawrowski
+### WiMLDS Poznań Meetup #3
+
+---
+
+
+# Łukasz Wawrowski
+
+.pull-left[
+&lt;img src="img/uep.png" width=300px&gt;
+
+__Nauczyciel akademicki__
+
+Dydaktyka:
+- Statystyka opisowa
+- Statystyka matematyczna
+- Metoda reprezentacyjna
+- Przetwarzanie danych
+
+Naukowo:
+- Estymacja ubóstwa
+
+]
+
+.pull-right[
+&lt;img src="img/doji.png" width=300px&gt;
+
+__Analityk Big Data__
+
+- Projektowanie gry
+- Implemementacja algorytmów
+- Analityka
+- Sztuczna inteligencja
+
+]
+
+.footnote[Grafika tytułowa: [Ethix360](http://www.ethix360.com/blog/2018/8/29/ai-ethics-from-man-vs-machine-to-morality-vs-machine)]
+
+???
+
+Image credit: [Ethix360](http://www.ethix360.com/blog/2018/8/29/ai-ethics-from-man-vs-machine-to-morality-vs-machine)
+
+
+---
+
+# Projekt GAMEINN
+
+&lt;center&gt;Opracowanie silnika sztucznej inteligencji w strategicznej grze ekonomicznej w celu urealnienia i udoskonalenia interakcji graczy z NPC&lt;/center&gt;
+
+--
+
+- projekt finansowany przez NCBiR
+- czas trwania: 3 lata
+- dwa moduły gry
+- dwie części projektu
+
+---
+
+# Pasja wygrywa ze zdrowym rozsądkiem
+
+--
+
+&lt;img src="img/unity.png" height=100px&gt;
+
+--
+
+&lt;img src="img/python.png" height=100px&gt;
+
+--
+
+&lt;img src="img/js.png" height=100px&gt;
+
+--
+
+&lt;img src="img/r.png" height=100px&gt;
+
+---
+
+# Gra turowa
+
+- kółko i krzyżyk
+- szachy
+- Heroes 3
+
+---
+
+# Koncepcja gry
+
+- walka pomiędzy dwoma drużynami
+- jednostki są zróżnicowane pod względem:
+   - mobilności
+   - zasięgu strzału
+   - siły ataku
+   - obrony
+   - celności
+   - ...
+- na planszy występują różne przeszkody
+
+---
+
+# Plansza - kwadraty i sześciokąty
+
+--
+
+.pull-left[
+&lt;img src="img/square.png" width=300px&gt;
+
+Dwie odległości.
+]
+
+.pull-right[
+&lt;img src="img/hex.png" width=300px&gt;
+
+Jedna odległość.
+]
+
+--
+
+[H3: Uber’s Hexagonal Hierarchical Spatial Index](https://eng.uber.com/h3/)
+
+---
+
+# Plansza w R
+
+--
+
+
+```r
+library(sp)
+coord &lt;- matrix(c(0,0, 0, 15, 10, 15, 10,0, 0, 0), ncol=2, byrow=T)
+
+pg &lt;- Polygon(coord)
+ps &lt;- Polygons(list(pg),1)
+sps &lt;- SpatialPolygons(list(ps), 
+                       proj4string = CRS(as.character(NA)))
+
+hexpoints &lt;- spsample(sps, n=100, type="hexagonal", cellsize=1)
+hexgrid &lt;- HexPoints2SpatialPolygons(hexpoints, dx = 1)
+```
+
+---
+
+# Plansza w R
+
+![](img/hex_r.png)
+
+---
+
+# Interaktywność
+
+
+```r
+library(shiny)
+
+plotOutput(outputId, width = "100%", height = "400px", 
+           click = NULL,
+           dblclick = NULL, 
+           hover = NULL, ...)
+```
+
+---
+
+# Poruszanie się po planszy
+
+
+```r
+library(rgeos)
+
+gContains() # czy punkt jest jednostką
+gDistance() # odległość 
+gIntersects() # co znajduje się po drodze
+```
+
+---
+
+# Gra
+
+![](img/game.png)
+
+---
+
+background-image: url(img/jazz.png)
+
+---
+
+# Definicja wygranej
+
+Maksymalizacja obrażeń przeciwnika przy jednoczesnym ograniczeniu strat własnych.
+
+- 4:0
+- 1:0
+
+---
+
+# Easy
+
+Prosty algorytm.
+
+![](img/easy.png)
+
+---
+
+# Medium
+
+Funkcja oceniająca możliwe akcje dla stanu gry.
+
+- strzał spowoduje wyeliminowanie jednostki: +100
+- na linii strzału znajduje się przeszkoda: -20
+- ruch spowoduje narażenie się na strzał: -50
+- ...
+
+--
+
+Wybór akcji, która charakteryzuje się najwyższą wartością funkcji.
+
+---
+
+# Hard
+
+Rozegranie wielu rozgrywek i wykorzystanie zebranych danych do stworzenia funkcji oceniającej możliwe akcje.
+
+[shinyapps.io](https://www.shinyapps.io/) + googlesheets
+
+--
+
+Definicja udanej akcji.
+
+Wiele klasyfikatorów do wyboru.
+
+---
+
+# Turbo
+
+__Alogrytmm minimax__
+
+Przewidywanie akcji przeciwnika do końca gry.
+
+Bardzo duża złożoność obliczeniowa.
+
+W szachach około `\(20^{50}\)` stanów gry.
+
+--
+
+__Uczenie się ze wzmocnieniem__
+
+Agent nie zna środowiska.
+
+Maksymalizacja określonego kryterium.
+
+---
+
+class: inverse
+
+# Dziękuję za uwagę!
+
+&lt;img src="img/cartoon.jpeg" width=600px&gt;
+
+.footnote[https://www.cartoonmovement.com/cartoon/28422]
+
+???
+
+[](https://www.cartoonmovement.com/cartoon/28422)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
