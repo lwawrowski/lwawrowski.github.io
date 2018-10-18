@@ -37,13 +37,15 @@ Naukowo:
 
 ]
 
+--
+
 .pull-right[
 &lt;img src="img/doji.png" width=300px&gt;
 
 __Analityk Big Data__
 
 - Projektowanie gry
-- Implemementacja algorytmów
+- Implementacja algorytmów
 - Analityka
 - Sztuczna inteligencja
 
@@ -95,7 +97,11 @@ Image credit: [Ethix360](http://www.ethix360.com/blog/2018/8/29/ai-ethics-from-m
 
 - kółko i krzyżyk
 - szachy
-- Heroes 3
+
+
+- Heroes of Might &amp; Magic
+- Total War
+- Fallout
 
 ---
 
@@ -110,6 +116,14 @@ Image credit: [Ethix360](http://www.ethix360.com/blog/2018/8/29/ai-ethics-from-m
    - celności
    - ...
 - na planszy występują różne przeszkody
+
+---
+
+# Koncepcja gry - analityka
+
+- sposób obliczania utraconych HP
+- wpływ przeszkód na siłę ataku
+- miejsce występowania czynnika losowego
 
 ---
 
@@ -183,7 +197,7 @@ library(rgeos)
 
 gContains() # czy punkt jest jednostką
 gDistance() # odległość 
-gIntersects() # co znajduje się po drodze
+gIntersects() # co znajduje się pomiędzy dwoma punktami
 ```
 
 ---
@@ -201,6 +215,8 @@ background-image: url(img/jazz.png)
 # Definicja wygranej
 
 Maksymalizacja obrażeń przeciwnika przy jednoczesnym ograniczeniu strat własnych.
+
+--
 
 - 4:0
 - 1:0
@@ -248,7 +264,7 @@ Wiele klasyfikatorów do wyboru.
 
 __Alogrytmm minimax__
 
-Przewidywanie akcji przeciwnika do końca gry.
+Przewidywanie możliwych akcji do końca gry.
 
 Bardzo duża złożoność obliczeniowa.
 
