@@ -97,3 +97,7 @@ th, td { padding: 5px; }
   padding: -20px;
   color: #5E4242;
 }
+
+.remark-code {
+  font-size: 14px;
+}
