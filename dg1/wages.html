@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Area-level models in business statistics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Grażyna Dehnel and Łukasz Wawrowski" />
+    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <link rel="stylesheet" href="default-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Area-level models in business statistics
+## with administrative registers in Poland
+### Grażyna Dehnel and Łukasz Wawrowski
+### 4.11.2020
+
+---
+
+
+
+
+## Introduction
+
+### Motivation
+
+1. data about business statistics are published by NACE sections or size of entities   
+
+2. information about average wage is available for NUTS 2 level (with no information about size of entity)
+
+### Aims
+
+1. Estimate average wage for small enterprises at NUTS 3 level.
+
+2. Provide applicable model for official statistics.
+
+---
+
+## Related works
+
+- [Ghosh, M., &amp; Rao, J. N. K. (1994). Small Area Estimation: An Appraisal. Statistical Science, 9(1), 55–76.](https://sci-hub.se/10.1214/ss/1177010647)
+
+- [Burgard, J. P., Münnich, R., &amp; Zimmermann, T. (2014). The impact of sampling designs on small area estimates for business data. Journal of Official Statistics, 30(4), 749-771.](https://content.sciendo.com/view/journals/jos/30/4/article-p749.xml)
+
+- [Schmid, T., Tzavidis, N., Münnich, R., &amp; Chambers, R. (2016). Outlier robust small‐area estimation under spatial correlation. Scandinavian Journal of Statistics, 43(3), 806-826.](https://onlinelibrary.wiley.com/doi/abs/10.1111/sjos.12205)
+
+- [Luzi, O., Solari, F., &amp; Rocci, F. (2018). A Study of Small Area Estimation for Italian Structural Business Statistics. Journal of Official Statistics, 34(2), 543-555.](https://content.sciendo.com/view/journals/jos/34/2/article-p543.xml)
+
+- [Fabrizi, E., Ferrante, M. R., &amp; Trivisano, C. (2018). Bayesian small area estimation for skewed business survey variables. Journal of the Royal Statistical Society: Series C (Applied Statistics), 67(4), 861-879.](https://sci-hub.se/10.1111/rssc.12254)
+
+- [Smith, P. A., Bocci, C., Tzavidis, N., Krieg, S., &amp; Smeets, M. J. (2020). Robust estimation for small domains in business surveys.](https://arxiv.org/ftp/arxiv/papers/2006/2006.01864.pdf)
+
+---
+
+## Number of entities by NACE sections
+
+![](wages_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+---
+
+## Number of entities by size
+
+![](wages_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+160851 entities of 10-49 employees in 2011 year.
+
+---
+
+## Data available in Local Data Bank
+
+.pull-left[
+Average wages at NUTS2 level
+
+&lt;center&gt;&lt;img src = "img/map_wyn_nuts2_cat.png" width = "500px"&gt;&lt;/center&gt;
+
+]
+
+.pull-right[
+Number of entities at NUTS3 level
+
+&lt;center&gt;&lt;img src = "img/map_regon_nuts3_cat_q3.png" width = "500px"&gt;&lt;/center&gt;
+
+]
+
+
+---
+
+## Background of the study
+
+- 2011 year
+
+- entity size 10-49
+
+- 4 NACE sections: C, F, G, H
+
+- 73 NUTS 3 units
+
+---
+
+## Standard Fay-Herriot model
+
+First level:
+
+`$$\hat{\theta}_d^{Dir}=\theta_d+e_d$$`
+
+Second level:
+
+`$$\theta_d=x_d^T\beta+u_d$$`
+
+EBLUP:
+
+`$$\hat{\theta}_d^{FH}=x_d^T\hat{\beta}+\hat{u}_d=\hat{\gamma}\hat{\theta}_d^{Dir}+(1-\hat{\gamma})x_d^T\hat{\beta}$$`
+where:
+
+- `\(\hat{\theta}_d^{Dir}\)` - unbiased direct estimator for a population indicator of interest `\(\theta_d\)`
+- `\(\beta\)` - vector of unknown fixed-effect parameters
+- `\(u_d\)` - random effect
+- `\(\hat{\gamma}\)` - shrinkage factor
+
+
+---
+
+## Fay-Herriot models
+
+- Fay-Herriot model (Fay and Herriot 1979)
+
+- Robust Fay-Herriot model (Warnholz 2016)
+
+- Spatial Fay-Herriot model (Pratesi and Salvati 2008)
+
+- Robust spatial Fay-Herriot model (Warnholz 2016)
+
+---
+
+## Generalized variance function
+
+Estimates of `\(\hat{var}(\hat{\theta}_d^{Dir})\)` are not precise since the sample sizes of the target level are generally very small. An alternative
+estimation procedure uses auxiliary data and applies a log-linear model for the variance estimates of direct estimators.
+
+Schall (1991) proposed the GVF method that fits the model:
+
+`$$log(\hat{var}(\hat{\theta}_d^{Dir})) = x_d^v\beta^v+e_d^v$$`
+---
+
+## Benchmark
+
+The idea of benchmarking is that the aggregated FH estimates should sum up to estimates of a higher regional level `\(\tau\)`:
+
+`$$\sum\limits_{d=1}^{D}{\xi_d\hat{\theta}_d^{FH,bench}}=\tau$$`
+where `\(\xi_d\)` stands for the share of the population size of each area in the total population size `\((N_d/N)\)`.
+
+Datta et.al (2011) proposed a general estimator:
+
+`$$\hat{\theta}_d^{FH,bench}=\hat{\theta}_d^{FH}+\left(\sum\limits_{d=1}^{D}{\frac{\xi_d^2}{\phi_d}}\right)^{-1}\left(\tau-\sum\limits_{d=1}^{D}{\xi_d\hat{\theta}_d^{FH}}\right)\frac{\xi_d}{\phi_d}$$`
+Depending on the weight `\(\phi_d\)` there are 3 benchmarking options:
+
+1. `\(\phi_d=\xi_d\)` - all FH estimates are adjusted by the same factor,
+2. `\(\phi_d=\xi_d/\hat{\theta}^{FH}_d\)`
+3. `\(\phi_d=\xi_d/\hat{MSE}(\hat{\theta}^{FH}_d)\)`
+
+---
+
+## Estimation procedure
+
+![](img/diagram.png)
+
+---
+
+## GVF results
+
+To stabilize variance of direct estimates generalized variance function was applied. The log-linear model given by formula:
+
+`$$log(\hat{var}(\hat{\theta}_d^{dir})) = \hat{\theta}_d^{dir} + \sqrt{n_d}$$`
+
+Beta coefficents of GVF models
+
+|pkd | intercept|  `\(\hat{Y}\)`|    `\(\sqrt{n}\)`|
+|:---|---------:|----------:|-------------:|
+|C   |  8.616117|  0.0011383|    -0.2225345|
+|F   |  8.822602|  0.0015756|    -0.4904133|
+|G   |  8.681954|  0.0013893|    -0.2978765|
+|H   |  7.670633|  0.0017403|    -0.3164659|
+
+---
+
+## GVF results
+
+![](wages_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+---
+
+## Model
+
+Dependent variable:
+
+- average wage
+
+Auxiliary variables:
+
+- trimmed average revenue (from ministry of finance)
+
+- number of enterprises per 100k population (from REGON)
+
+- average number of employees (from social insurance system)
+
+- binary variable - population above third quartile
+
+---
+
+## Direct estimates
+
+Descriptive statistics of direct estimates
+
+
+|pkd | number_of_nuts3|     min|    mean|     sd|  median|     max|
+|:---|---------------:|-------:|-------:|------:|-------:|-------:|
+|C   |              73| 1649.55| 2381.82| 398.08| 2267.82| 3732.75|
+|F   |              73| 1689.30| 2622.70| 515.45| 2506.16| 4642.24|
+|G   |              73| 1824.27| 2600.27| 630.48| 2442.94| 5417.21|
+|H   |              68| 1519.47| 2463.06| 697.38| 2256.65| 4512.84|
+
+---
+
+## Indirect estimates 
+
+![](wages_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+
+## Indirect estimates - precision
+
+![](wages_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+
+## Diagnostics
+
+- residual diagnostics,
+
+- goodness of fit diagnostic (Brown et al. 2001)
+
+- Moran I statistics
+
+---
+
+## Benchmark
+
+Direct average wage estimates at country level:
+
+
+|pkd | average_wage|    se|   cv|
+|:---|------------:|-----:|----:|
+|C   |      2448.28| 19.75| 0.81|
+|F   |      2862.57| 45.11| 1.58|
+|G   |      2910.41| 33.02| 1.13|
+|H   |      2729.56| 78.95| 2.89|
+
+---
+
+## Benchmark
+
+Spatial Fay-Herriot model, F NACE section
+
+
+|Domain |  Direct|      FH| FH_Bench|
+|:------|-------:|-------:|--------:|
+|01     | 2503.11| 2400.65|  2569.43|
+|02     | 2995.16| 2808.52|  2967.49|
+|03     | 2406.81| 2499.11|  2614.30|
+|04     | 3181.09| 2807.14|  2981.49|
+|05     | 3696.92| 3534.73|  3668.69|
+|06     | 3000.61| 2991.27|  3084.82|
+
+
+Weighted mean for direct: 2832.83
+
+Weighted mean for FH: 2714.56
+
+Weighted mean for benchmarked FH: 2862.57
+
+---
+
+## Maps
+
+Spatial Fay-Herriot estimates
+
+&lt;center&gt;&lt;img src = "img/map_sfh.png" width = "500px"&gt;&lt;/center&gt;
+
+---
+
+## Correlations
+
+![](wages_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+Pearson correlations for NACE sections: 0.77 (C), 0.71 (F), 0.75 (G), 0.51 (H).
+
+---
+
+## Estimates relation to average wage
+
+
+|pkd | number_of_nuts3|  min| mean|   sd| median|  max|
+|:---|---------------:|----:|----:|----:|------:|----:|
+|C   |              73| 0.55| 0.74| 0.07|   0.74| 0.86|
+|F   |              73| 0.58| 0.83| 0.09|   0.84| 1.05|
+|G   |              73| 0.57| 0.80| 0.10|   0.79| 1.10|
+|H   |              68| 0.45| 0.84| 0.13|   0.84| 1.17|
+
+
+---
+
+## Conclusions
+
+- administrative registers are probably only source of auxiliary variables for business surveys
+
+- spatial Fay-Herriot model has the best performance in average wage estimation
+
+- average wages for small entities in analyzed NACE sections are from 74% to 84% of total average wages
+
+---
+
+## Bibliography
+
+- Brown G, Chambers R, Heady P, Heasman D (2001). “Evaluation of Small Area Estimation Methods - An Application to Unemployment Estimates from the UK LFS.” In Proceedings of Statistics Canada Symposium.
+- Datta G, Ghosh M, Steorts R, Maples J (2011). “Bayesian Benchmarking with Applications to Small Area Estimation.” TEST, 20(3), 574–588. doi:10.1007/s11749-010-0218-y.
+- Fay RE, Herriot RA (1979). “Estimates of Income for Small Places: An Application of James-Stein Procedures to Census Data.” Journal of the American Statistical Association, 74(366), 269–277. doi:10.1080/01621459.1979.10482505.
+- [Fuquene, J., Cristancho, C., Ospina, M., &amp; Morales, D. (2019). Prevalence of international migration: an alternative for small area estimation. arXiv preprint arXiv:1905.00353.](https://arxiv.org/pdf/1905.00353.pdf)
+- [Kreutzmann A, Pannier S, Rojas-Perilla N, Schmid T, Templ M, Tzavidis N (2019). “The R Package emdi for Estimating and Mapping Regionally
+Disaggregated Indicators.” _Journal of Statistical Software_, 91(7), 1-33.](https://doi.org/10.18637/jss.v091.i07)
+- [Harmening, S., Kreutzmann, A. K., Pannier, S., Salvati, N., &amp; Schmid, T. A Framework for Producing Small Area Estimates Based on Area-Level Models in R.](http://mirror.epn.edu.ec/CRAN/web/packages/emdi/vignettes/vignette_fh.pdf)
+- Pratesi M, Salvati N (2008). “Small Area Estimation: the EBLUP Estimator Based on Spatially Correlated Random Area Effects.” Statistical Methods and Applications, 17(1), 113–141. doi:10.1007/s10260-007-0061-9.
+- [Schall, R. (1991). Estimation in generalized linear models with random effects. Biometrika, 78, 4, 719–727.](https://www.jstor.org/stable/2336923)
+- Warnholz S (2016). Small Area Estimation Using Robust Extensions to Area Level Models. Ph.D. thesis. doi:10.17169/refubium-13904. Freie Universität Berlin.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
