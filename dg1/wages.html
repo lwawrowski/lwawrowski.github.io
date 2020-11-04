@@ -54,6 +54,18 @@ class: center, middle, inverse, title-slide
 
 ---
 
+## Background of the study
+
+- 2011 year
+
+- entity size 10-49
+
+- 4 NACE sections: C, F, G, H
+
+- 73 NUTS 3 units
+
+---
+
 ## Number of entities by NACE sections
 
 ![](wages_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
@@ -84,18 +96,17 @@ Number of entities at NUTS3 level
 
 ]
 
+---
+
+class: inverse, center, middle
+
+## Methods
 
 ---
 
-## Background of the study
+## Estimation procedure
 
-- 2011 year
-
-- entity size 10-49
-
-- 4 NACE sections: C, F, G, H
-
-- 73 NUTS 3 units
+![](img/diagram.png)
 
 ---
 
@@ -162,9 +173,54 @@ Depending on the weight `\(\phi_d\)` there are 3 benchmarking options:
 
 ---
 
-## Estimation procedure
+class: inverse, center, middle
 
-![](img/diagram.png)
+## Results
+
+
+---
+
+## DG1 description
+
+Number of entities in population and sample by NACE sections
+
+|pkd |C    |F    |G    |H   |
+|:---|----:|----:|----:|---:|
+|population   |21583 |12736 |22677 |5000 | 
+|sample   |3553 |1288 |3682 |513 |
+
+Descriptive statistics of sample size
+
+|pkd | number of nuts3| min| mean| sd| median| max|
+|:---|---------------:|---:|----:|--:|------:|---:|
+|C - manufaturing   |              73|  12|   49| 24|     41| 131|
+|F - construction  |              73|   4|   18| 13|     15|  71|
+|G - trade   |              73|  14|   50| 38|     39| 298|
+|H - transportation |              68|   2|    8|  6|      6|  37|
+
+---
+
+## Direct estimates
+
+Descriptive statistics of direct estimates
+
+
+|pkd | number_of_nuts3|     min|    mean|     sd|  median|     max|
+|:---|---------------:|-------:|-------:|------:|-------:|-------:|
+|C   |              73| 1649.55| 2381.82| 398.08| 2267.82| 3732.75|
+|F   |              73| 1689.30| 2622.70| 515.45| 2506.16| 4642.24|
+|G   |              73| 1824.27| 2600.27| 630.48| 2442.94| 5417.21|
+|H   |              68| 1519.47| 2463.06| 697.38| 2256.65| 4512.84|
+
+Descriptive statistics of coefficent of variation of direct estimates
+
+
+|pkd | number_of_nuts3|  min| mean|   sd| median|  max|
+|:---|---------------:|----:|----:|----:|------:|----:|
+|C   |              73| 0.04| 0.06| 0.02|   0.06| 0.12|
+|F   |              73| 0.05| 0.10| 0.04|   0.09| 0.25|
+|G   |              73| 0.04| 0.07| 0.03|   0.06| 0.17|
+|H   |              68| 0.01| 0.13| 0.07|   0.11| 0.34|
 
 ---
 
@@ -178,16 +234,16 @@ Beta coefficents of GVF models
 
 |pkd | intercept|  `\(\hat{Y}\)`|    `\(\sqrt{n}\)`|
 |:---|---------:|----------:|-------------:|
-|C   |  8.616117|  0.0011383|    -0.2225345|
-|F   |  8.822602|  0.0015756|    -0.4904133|
-|G   |  8.681954|  0.0013893|    -0.2978765|
-|H   |  7.670633|  0.0017403|    -0.3164659|
+|C - manufaturing   |  8.616117|  0.0011383|    -0.2225345|
+|F - construction   |  8.822602|  0.0015756|    -0.4904133|
+|G - trade   |  8.681954|  0.0013893|    -0.2978765|
+|H - transportation   |  7.670633|  0.0017403|    -0.3164659|
 
 ---
 
 ## GVF results
 
-![](wages_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](wages_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -209,35 +265,21 @@ Auxiliary variables:
 
 ---
 
-## Direct estimates
-
-Descriptive statistics of direct estimates
-
-
-|pkd | number_of_nuts3|     min|    mean|     sd|  median|     max|
-|:---|---------------:|-------:|-------:|------:|-------:|-------:|
-|C   |              73| 1649.55| 2381.82| 398.08| 2267.82| 3732.75|
-|F   |              73| 1689.30| 2622.70| 515.45| 2506.16| 4642.24|
-|G   |              73| 1824.27| 2600.27| 630.48| 2442.94| 5417.21|
-|H   |              68| 1519.47| 2463.06| 697.38| 2256.65| 4512.84|
-
----
-
 ## Indirect estimates 
-
-![](wages_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
-
----
-
-## Indirect estimates - precision
 
 ![](wages_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 ---
 
+## Indirect estimates - precision
+
+![](wages_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+---
+
 ## Diagnostics
 
-- residual diagnostics,
+- residual diagnostics
 
 - goodness of fit diagnostic (Brown et al. 2001)
 
@@ -282,6 +324,15 @@ Weighted mean for benchmarked FH: 2862.57
 
 ---
 
+## Benchmark
+
+F NACE section
+
+![](wages_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+
+---
+
 ## Maps
 
 Spatial Fay-Herriot estimates
@@ -292,7 +343,7 @@ Spatial Fay-Herriot estimates
 
 ## Correlations
 
-![](wages_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](wages_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 Pearson correlations for NACE sections: 0.77 (C), 0.71 (F), 0.75 (G), 0.51 (H).
 
@@ -306,8 +357,18 @@ Pearson correlations for NACE sections: 0.77 (C), 0.71 (F), 0.75 (G), 0.51 (H).
 |C   |              73| 0.55| 0.74| 0.07|   0.74| 0.86|
 |F   |              73| 0.58| 0.83| 0.09|   0.84| 1.05|
 |G   |              73| 0.57| 0.80| 0.10|   0.79| 1.10|
-|H   |              68| 0.45| 0.84| 0.13|   0.84| 1.17|
+|H   |              73| 0.45| 0.82| 0.14|   0.82| 1.17|
 
+--
+
+[Activity of non-financial enterprises in 2011](https://stat.gov.pl/obszary-tematyczne/podmioty-gospodarcze-wyniki-finansowe/przedsiebiorstwa-niefinansowe/dzialalnosc-przedsiebiorstw-niefinansowych-w-2018-roku,2,15.html)
+
+|pkd | average wage (small)|  average wage (total) | relation |
+|:---|---------:|----------:|-------------:|
+|C - manufaturing   |  2460 | 3339 | 0.74 |
+|F - construction   |  2383 | 3290 | 0.72 |
+|G - trade   |  2402 | 2904 | 0.82 |
+|H - transportation   | 2149 | 3224 | 0.67 |
 
 ---
 
@@ -317,7 +378,11 @@ Pearson correlations for NACE sections: 0.77 (C), 0.71 (F), 0.75 (G), 0.51 (H).
 
 - spatial Fay-Herriot model has the best performance in average wage estimation
 
-- average wages for small entities in analyzed NACE sections are from 74% to 84% of total average wages
+- through utilize small area estimation methods it was possible to obtain out-of-sample estimates
+
+- MSE estimates are only available for indirect estimates before benchmarking
+
+- average wages for small entities in analyzed NACE sections are from 74% to 83% of total average wages
 
 ---
 
