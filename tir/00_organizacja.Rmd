@@ -1,0 +1,101 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Organizacja zajęć"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# Prowadzący
+
+__dr Łukasz Wawrowski__  
+lukasz.wawrowski@us.edu.pl
+
+Konsultacje 
+
+- czwartki: 13:00-13:45
+
+Pokój 116
+
+---
+
+# Zakres tematów
+
+- Modelowanie i symulacja systemów IoT w programie Packet Tracer.
+
+- Konfiguracja urządzeń sieciowych oraz aplikacji służących do wspierania realizacji IoT.
+
+- Planowanie rozwiązań IoT oraz ich implementacja z użyciem rzeczywistych urządzeń (np. zestawy Arduino Opla IoT Kit).
+
+- Brokery wiadomości, np. RabbitMQ, HiveMQ oraz protokoły MQTT i AMQP.
+
+- Analiza korzyści i wyzwań związanych z IoT.
+
+- Prezentacja opracowywanych rozwiązań IoT.
+
+---
+
+# Zaliczenie przedmiotu
+
+Ocena końcowa z laboratorium wyznaczana jest na podstawie średniej z zadań projektowych do realizacji w sekcjach lub samodzielnie.
+
+Aby zaliczyć każde zadanie studenci przygotowują sprawozdanie i prezentują swoje rozwiązania oraz odpowiadają na pytania prowadzącego.
+
+Ocena każdego zadania projektowego uwzględnia następujące kryteria:
+
+- stopień zaawansowania projektu
+
+- wykorzystanie technologii poznanych podczas zajęć
+
+- stopień opanowania poznanych technologii
+
+- wiedza niezbędna do modyfikacji projektu
+
+W przypadku prezentacji zadania po ustalonym terminie, student może uzyskać zaliczenie zadania maksymalnie na ocenę dobrą. Ocena ulega zmniejszeniu o 1 z każdym tygodniem zwłoki.
+
+---
+
+# Tematy projektów
+
+Grupy 2-3 osobowe
+
+- Modelowanie i symulacja systemów IoT w programie Packet Tracer
+
+- praktyczne przykłady rozwiązań IoT z użyciem rzeczywistych urządzeń – do dyspozycji są m. in. zestawy Arduino Opla IoT Kit
+
+- Brokery wiadomości: RabbitMQ, HiveMQ
+
+---
+
+# Skala ocen
+
+|  %  | ocena |
+|:---:|:-----:|
+|0-59 | ndst  |
+|60-67| dst   |
+|68-75| dst+  |
+|76-83| db    |
+|84-91| db+   |
+|92-100| bdb   |
+
+---
+
+# Nieobecności
+
+Na zajęciach sprawdzana jest obecność.
+
+Dozwolone są dwie nieusprawiedliwione nieobecności.
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
