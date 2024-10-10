@@ -1,0 +1,75 @@
+---
+title: "Sieci komputerowe"
+subtitle: "Organizacja zajęć"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# Prowadzący
+
+__dr Łukasz Wawrowski__  
+lukasz.wawrowski@us.edu.pl
+
+Konsultacje 
+
+- czwartki: 13:00-13:45
+
+Pokój 116
+
+---
+
+# Zaliczenie przedmiotu
+
+- referat w trakcie laboratorium jednego z modułów - 20% końcowej oceny;
+
+- sześć egzaminów modułowych online - 20% końcowej oceny;
+
+- projekt sieci w symulatorze Pacet Tracer - 20% końcowej oceny;
+
+- Final exam w środowisku nadzorowanym - 40% końcowej oceny.
+
+---
+
+# Skala ocen
+
+|  %  | ocena |
+|:---:|:-----:|
+|0-59 | ndst  |
+|60-67| dst   |
+|68-75| dst+  |
+|76-83| db    |
+|84-91| db+   |
+|92-100| bdb   |
+
+---
+
+# Nieobecności
+
+Na zajęciach sprawdzana jest obecność.
+
+Dozwolone są dwie nieusprawiedliwione nieobecności.
+
+---
+
+# Platforma
+
+Cisco Networking Academy https://www.netacad.com/
+
+Kurs musi być zakończony do 22.02.2025.
+
+Ukończenie kursu skutkuje uzyskaniem certyfikatu Cisco.
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
