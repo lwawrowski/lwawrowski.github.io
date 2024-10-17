@@ -98,7 +98,22 @@ Dozwolone są dwie nieusprawiedliwione nieobecności.
 
 # Teams
 
+Technologie Internetu Rzeczy gr. 1: 2j8szwx
+
 Technologie Internetu Rzeczy gr. 2: n0p5a8q
+
+---
+
+# Platforma
+
+Cisco Networking Academy https://www.netacad.com/
+
+Kurs: Introduction to the Internet of Everything
+
+Dane dostępowe: https://forms.gle/qN2oKQnnXVQtJ9z87
+
+![](img/qr_tir.png)
+
 
 ---
 
