@@ -1,0 +1,93 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Packet Tracer"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# Cisco Packet Tracer
+
+Wieloplatformowe narzędzie, które umożliwia tworzenie i symulacje Internetu Rzeczy bez potrzeby korzystania ze sprzętu.
+
+https://www.netacad.com/resources/lab-downloads
+
+---
+
+# Podstawowe komponenty
+
+- Komponenty IoT – pomiarowe, 
+
+- Komponenty IoT – wykonawcze, 
+
+- Komponenty IoT – kontrolery sterujące,
+
+- Urządzenia inteligentne IoT.
+
+---
+
+# Czujniki
+
+- analogowe generują sygnały z zakresie Min-Max np. czujnik temperatury, czujnik dymu
+
+- dwustanowe generują tylko dwa stany np. czujka ruchu, przełącznik
+
+- elementy pomocnicze służą do przenoszenia sygnału z jednego portu wyjściowego na trzy porty wyjściowe
+
+---
+
+# Komponenty wykonawcze
+
+- Urządzenia zmieniające środowisko np. zmiana temperatury, 
+
+- Elementy sygnalizacyjne np. dioda, głośnik
+
+- Spryskiwacze wodne,
+
+- Wyświetlacze i serwomechanizmy np. silnik.
+
+---
+
+# Komponenty sterujące
+
+- SBC-PT (ang. Single Board Computer) - Raspberry Pi
+
+- MCU-PT (ang. MicroController Unit) - Arduino
+
+---
+
+# Urządzenia inteligentne IoT
+
+- home np. lampa
+
+- smart city np. licznik mocy elektrycznej
+ 
+- industrial np. klimatyzator
+
+- power grid np. panel solarny
+
+---
+
+# Zmienne środowiskowe
+
+- temperatura
+
+- ilość światła słonecznego
+
+- grawitacja
+
+- prędkość wiatru
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
