@@ -1,0 +1,21 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Projekt 1 - Packet Tracer"
+format: pdf
+---
+
+Celem projektu jest wykorzystanie programu Cisco Packet Tracer do zaprojektowania rozwiązania smart home, smart city lub smart industry.
+
+Projekt jest pracą grupową w zespołach 2-3 osobowych. Podstawą oceny jest sprawozdanie zawierające opis i uzasadnienie przeprowadzonych prac, plik programu Packet Tracer oraz prezentacja na zajęciach.
+
+Projekt musi spełniać następujące wymagania:
+
+- wykorzystanie różnych połączeń pomiędzy urządzeniami - bezprzewodowe i przewodowe,
+
+- stworzenie co najmniej dwóch nowych urządzeń IoT,
+
+- zmiana wartości zmiennych środowiskowych
+
+- uwzględnienie co najmniej czterech warunków wpływających na działanie urządzeń.
+
+Spełnienie wymienionych wymagań w minimalnym stopniu skutkuje oceną dostateczną.
