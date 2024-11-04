@@ -10,12 +10,12 @@ Projekt jest pracą grupową w zespołach 2-3 osobowych. Podstawą oceny jest sp
 
 Projekt musi spełniać następujące wymagania:
 
-- wykorzystanie różnych połączeń pomiędzy urządzeniami - bezprzewodowe i przewodowe,
+- wykorzystanie różnych połączeń pomiędzy urządzeniami - co najmniej jednego typu bezprzewodowego i jednego typu przewodowego,
 
 - stworzenie co najmniej dwóch nowych urządzeń IoT,
 
-- zmiana wartości zmiennych środowiskowych
+- zmiana wartości zmiennych środowiskowych - co najmniej jedna wartość,
 
 - uwzględnienie co najmniej czterech warunków wpływających na działanie urządzeń.
 
-Spełnienie wymienionych wymagań w minimalnym stopniu skutkuje oceną dostateczną.
+Spełnienie wymienionych wymagań w minimalnym stopniu skutkuje oceną dostateczną. Ocenie podlega także staranność wykonania projektu i sprawozdania oraz jakość prezentacji.
