@@ -1,0 +1,210 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Packet Tracer"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# Cisco Packet Tracer
+
+Wieloplatformowe narzędzie, które umożliwia tworzenie i symulacje Internetu Rzeczy bez potrzeby korzystania ze sprzętu.
+
+https://www.netacad.com/resources/lab-downloads
+
+---
+
+class: inverse
+
+# Zadanie
+
+Proszę pobrać i zainstalować program Packet Tracer.
+
+```{r include=FALSE}
+library(tidyverse)
+library(countdown)
+```
+
+`r countdown(minutes = 5, seconds = 0, top = 0)`
+
+---
+
+# Podstawowe komponenty
+
+- Komponenty IoT – pomiarowe, 
+
+- Komponenty IoT – wykonawcze, 
+
+- Komponenty IoT – kontrolery sterujące,
+
+- Urządzenia inteligentne IoT.
+
+---
+
+# Czujniki
+
+- analogowe generują sygnały z zakresie Min-Max np. czujnik temperatury, czujnik dymu
+
+- dwustanowe generują tylko dwa stany np. czujka ruchu, przełącznik
+
+- elementy pomocnicze służą do przenoszenia sygnału z jednego portu wyjściowego na trzy porty wyjściowe
+
+---
+
+# Komponenty wykonawcze
+
+- Urządzenia zmieniające środowisko np. zmiana temperatury, 
+
+- Elementy sygnalizacyjne np. dioda, głośnik
+
+- Spryskiwacze wodne,
+
+- Wyświetlacze i serwomechanizmy np. silnik.
+
+---
+
+# Komponenty sterujące
+
+- SBC-PT (ang. Single Board Computer) - Raspberry Pi
+
+- MCU-PT (ang. MicroController Unit) - Arduino
+
+---
+
+# Urządzenia inteligentne IoT
+
+- home np. lampa
+
+- smart city np. licznik mocy elektrycznej
+ 
+- industrial np. klimatyzator
+
+- power grid np. panel solarny
+
+---
+
+# Ćwiczenie
+
+1. Utworzenie sieci domowej
+
+2. Dodanie urządzeń IoT: Wind Detector oraz Water Level Monitor
+
+---
+
+class: inverse
+
+`r countdown(minutes = 5, seconds = 0, top = 0)`
+
+# Zadanie
+
+Podłącz do sieci następujące urządzenia: drzwi oraz wiatrak. Jakie są możliwe stany tych urządzeń?
+
+---
+
+# Bluetooth
+
+1. **Bezprzewodowa transmisja danych** – Bluetooth umożliwia bezprzewodową wymianę danych między urządzeniami, co eliminuje potrzebę stosowania kabli.
+
+2. **Niski pobór energii** – Bluetooth Low Energy (BLE) to wersja Bluetooth o niskim zużyciu energii, dzięki czemu idealnie nadaje się do urządzeń mobilnych i IoT.
+
+3. **Krótki zasięg** – Bluetooth działa na krótkie odległości, zwykle do 10–100 metrów, co sprawia, że jest idealny do zastosowań lokalnych, np. w obrębie jednego pomieszczenia.
+
+4. **Uniwersalność i kompatybilność** – Bluetooth obsługiwany jest przez większość urządzeń, takich jak telefony, komputery, głośniki, słuchawki, urządzenia IoT, co zapewnia szeroką kompatybilność między różnymi platformami.
+
+5. **Bezpieczeństwo połączenia** – Bluetooth stosuje szyfrowanie i inne mechanizmy zabezpieczeń, aby chronić przesyłane dane przed nieautoryzowanym dostępem.
+
+---
+
+# Ćwiczenie
+
+Podłączenia głośnika bluetooth oraz odtwarzacza muzyki.
+
+---
+
+# Registration server
+
+Registration Server pozwala na centralne zarządzanie i monitorowanie urządzeń IoT w symulowanym środowisku sieciowym, ułatwiając ich kontrolę i konfigurację.
+
+---
+
+# Tethering
+
+**Tethering** to funkcja umożliwiająca udostępnianie połączenia internetowego z jednego urządzenia (np. smartfona) innym urządzeniom, takim jak laptopy, tablety czy komputery. Najczęściej stosowana jest w sytuacjach, gdy urządzenie mobilne ma dostęp do internetu (np. przez sieć komórkową 4G/5G), a inne urządzenie, które chcemy podłączyć, nie ma dostępu do sieci Wi-Fi.
+
+Istnieje kilka rodzajów tetheringu:
+
+1. **Tethering Wi-Fi (hotspot)** – Telefon działa jak przenośny router Wi-Fi, umożliwiając innym urządzeniom połączenie się z nim bezprzewodowo.
+2. **Tethering USB** – Połączenie odbywa się za pomocą kabla USB, co jest wygodne przy korzystaniu z laptopa i pozwala zaoszczędzić baterię telefonu.
+3. **Tethering Bluetooth** – Umożliwia udostępnienie internetu przez Bluetooth, chociaż jest to wolniejsze rozwiązanie i rzadziej stosowane.
+
+---
+
+# Ćwiczenie
+
+Podłączenie laptopa i telefonu komórkowego.
+
+---
+
+# Zmienne środowiskowe
+
+- temperatura
+
+- ilość światła słonecznego
+
+- grawitacja
+
+- prędkość wiatru
+
+- ...
+
+---
+
+# Ćwiczenie
+
+Zmiana wartości temperatury.
+
+---
+
+class: inverse
+
+# Zadanie
+
+Zmień ustawienia poziomu wody i obserwuj zmianę odpowiedniego urządzenia IoT.
+
+`r countdown(minutes = 5, seconds = 0, top = 0)`
+
+---
+
+# Nowe urządzenie IoT
+
+Packet Tracer umożliwia stworzenie nowego urządzenia w przypadku braku gotowego komponentu.
+
+---
+
+# Ćwiczenie 
+
+Stworzenie kamery bezpieczeństwa.
+
+---
+
+class: inverse
+
+# Zadanie
+
+Jakie inne urządzenia można stworzyć? Dodaj do programu Packet Tracer roletę antywłamaniową.
+
+`r countdown(minutes = 15, seconds = 0, top = 0)`
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
