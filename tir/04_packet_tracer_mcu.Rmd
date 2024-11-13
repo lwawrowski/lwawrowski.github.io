@@ -1,0 +1,177 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "MCU"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# Mikrokontrolery (MCU)
+
+- Mikrokontrolery to niewielkie, wyspecjalizowane układy komputerowe zawierające procesor, pamięć i porty wejścia/wyjścia.
+
+- Zwykle realizują jedną, określoną funkcję.
+
+---
+
+# MCU w kontekście IoT
+
+Rola MCU w systemach IoT:
+
+- Służą do przetwarzania danych z sensorów oraz kontroli różnych urządzeń.
+
+- Umożliwiają podejmowanie decyzji na podstawie danych wejściowych.
+
+- Komunikują się z innymi urządzeniami i sieciami, aby wymieniać informacje lub reagować na sygnały.
+
+---
+
+# Zastosowania MCU w IoT
+
+- Domy inteligentne: automatyzacja oświetlenia, temperatury i bezpieczeństwa.
+
+- Systemy alarmowe: monitorowanie aktywności i reagowanie na nieautoryzowane zdarzenia.
+
+- Przemysłowe IoT: monitorowanie maszyn i procesów w czasie rzeczywistym.
+
+---
+
+# Sensory w Packet Tracer
+
+- Czujnik temperatury
+
+- Czujnik wilgotności
+
+- Czujnik światła (światłomierz)
+
+- Czujnik ruchu
+
+- Czujnik dźwięku
+
+- ...
+
+---
+
+# Programming 
+
+`gpio` (General-Purpose Input Output) - biblioteka w Packet Tracer służąca do symulacji fizycznego urządzenia. Została zaprojektowany tak, aby naśladować rzeczywisty moduł dzięki czemu kod napisany na potrzeby symulacji można łatwo przenieść na prawdziwy sprzęt.
+
+Odczyt danych:
+
+- `digitalRead(slot)`
+
+- `analogRead(slot)`
+
+Zapis danych:
+
+- `customWrite(slot, value)`
+
+- `digitalWrite(slot, value)`
+
+- `analogWrite(slot, value)`
+
+---
+
+# Ćwiczenie 
+
+Zaprogramuj włącznik do lampy.
+
+---
+
+# Kod
+
+```python
+from gpio import *
+from time import *
+
+switchValue = 0
+
+def readFromSensors():
+	global switchValue
+	
+	switchValue = digitalRead(0)
+	
+def writeToActuators():
+	if(switchValue == HIGH):
+		customWrite(1, "2")
+	else:
+		customWrite(1, "0")
+```
+
+---
+
+# Kod
+
+```python
+def main():
+	pinMode(0, IN)
+	pinMode(1, OUT)
+	
+	while True:
+		readFromSensors()
+		writeToActuators()
+		delay(1000)
+		
+if __name__ == "__main__":
+	main()
+```
+
+---
+
+# Ćwiczenie 
+
+Użyj potencjometru do ustalenia jasności diody LED.
+
+---
+
+class: inverse
+
+```{r include=FALSE}
+library(countdown)
+```
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+# Zadanie
+
+Alarm w oparciu o czujnik ruchu: jeśli wykryto ruch, włącz sygnał dźwiękowy.
+
+---
+
+## Czujniki wykorzystujące środowsko
+
+- Humiture Sensor
+
+- Photo Sensor
+
+- Smoke Sensor
+
+- ...
+
+- Generic Enviroment Sensor
+
+---
+
+class: inverse
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+# Zadanie 
+
+Napisz kod, który monitoruje zarówno czujnik ruchu, jak i światłomierz. Włącz lampę, jeśli wykryto ruch, ale tylko gdy jest ciemno.
+
+Włącznika użyj do zapalania diody LED.
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
