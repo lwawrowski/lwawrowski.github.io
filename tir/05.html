@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Technologie Internetu Rzeczy</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="© Łukasz Wawrowski" />
+    <script src="libs/header-attrs-2.22/header-attrs.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <link rel="stylesheet" href="default-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Technologie Internetu Rzeczy
+]
+.subtitle[
+## MQTT
+]
+.author[
+### © Łukasz Wawrowski
+]
+
+---
+
+
+# Wprowadzenie do MQTT
+
+- **MQTT (Message Queuing Telemetry Transport)**: Lekki protokół komunikacyjny oparty na modelu publikacja-subskrypcja.  
+
+- **Opracowany przez:** IBM w 1999 roku, zoptymalizowany pod kątem urządzeń o niskich zasobach i sieci o ograniczonej przepustowości.  
+
+- **Dlaczego MQTT?**
+  - Minimalne narzuty danych.
+  - Wysoka niezawodność nawet w niestabilnych sieciach.
+  - Prosta implementacja.  
+
+---
+
+# Zalety i ograniczenia MQTT
+
+**Zalety:**  
+- Niskie zużycie energii i danych.  
+- Wszechstronność w zastosowaniach IoT.  
+- Prosta implementacja w różnych językach programowania.  
+
+**Ograniczenia:**  
+- Brak wbudowanej semantyki biznesowej.  
+- Potrzebne dodatkowe zabezpieczenia przy przesyłaniu wrażliwych danych.
+
+---
+
+# Architektura MQTT
+
+- **Model Publikacja-Subskrypcja:**  
+  - **Broker**: Centralny element zarządzający przesyłaniem wiadomości.  
+  - **Klient**: Urządzenie IoT lub aplikacja wysyłająca (publikująca) i/lub odbierająca wiadomości.  
+  
+- **Główne komponenty:**
+  - **Tematy (topics):** Kanały komunikacyjne zorganizowane hierarchicznie (np. `sensors/temperature`).  
+  - **Wiadomości:** Drobne porcje danych przesyłane między klientami.  
+
+---
+
+# Kluczowe cechy MQTT
+
+1. **QoS (Quality of Service):**  
+   - **QoS 0:** Dostarcz, jeśli możliwe.  
+   - **QoS 1:** Dostarcz co najmniej raz.  
+   - **QoS 2:** Dostarcz dokładnie raz.  
+2. **Trwałość połączeń:**  
+   - Wsparcie dla trybu *"Last Will and Testament"* (ostatnia wola klienta).  
+3. **Lekkość:** Minimalne zapotrzebowanie na zasoby.  
+4. **Bezpieczeństwo:** TLS/SSL, uwierzytelnianie użytkowników.  
+5. **Retencja danych:** Możliwość przechowywania ostatnich wiadomości przez brokera.  
+
+---
+
+# Quality of Service
+
+| **Poziom QoS** | **Opis**              | **Gwarancja dostarczenia** | **Ryzyko duplikatów** | **Zastosowanie**                       |
+|----------------|-----------------------|----------------------------|-----------------------|----------------------------------------|
+| **QoS 0**      | Co najwyżej raz       | Brak                      | Nie                  | Szybkie dane telemetryczne.            |
+| **QoS 1**      | Co najmniej raz       | Tak                       | Tak                  | Polecenia sterujące, monitorowanie.    |
+| **QoS 2**      | Dokładnie raz         | Tak                       | Nie                  | Transakcje finansowe, krytyczne dane.  |
+
+---
+
+# Przepływ komunikacji MQTT
+
+1. **Klient publikuje wiadomość** na określony temat (topic).  
+2. **Broker MQTT** odbiera wiadomość i przesyła ją wszystkim subskrybentom danego tematu.  
+3. **Subskrybenci** otrzymują wiadomość zgodnie z poziomem QoS.  
+
+---
+
+# Przepływ komunikacji MQTT
+
+![](img/mqtt.png)
+
+---
+
+# Przykłady wdrożeń
+
+1. **HiveMQ:**  
+   - Broker MQTT stosowany w systemach IoT dla przemysłu i motoryzacji.  
+2. **AWS IoT Core:**  
+   - Rozwiązania chmurowe wspierające MQTT dla aplikacji IoT.  
+3. **Eclipse Mosquitto:**  
+   - Open-source’owy broker MQTT dla małych i dużych aplikacji.  
+
+---
+
+# Narzędzia do MQTT
+
+- **Brokery:**
+  - Eclipse Mosquitto (lokalny, open-source).  
+  - HiveMQ (komercyjny i open-source).  
+- **Klienci testowi:**
+  - [MQTT Explorer](https://mqtt-explorer.com/) (graficzny klient).  
+  - CLI Mosquitto (narzędzie wiersza poleceń).  
+- **Biblioteki programistyczne:**
+  - Python: `paho-mqtt`.  
+
+---
+
+# Otwarte serwery MQTT
+
+- test.mosquitto.org
+
+- mqtt.eclipseprojects.io
+
+- broker.emqx.io
+
+---
+
+# Ćwiczenie
+
+Pokazanie działania publikacji i subskrypcji w MQTT.  
+
+https://github.com/DamascenoRafael/mqtt-simulator
+
+---
+
+# Subskrypcja
+
+```python
+import paho.mqtt.client as mqtt
+
+# Funkcja obsługująca odbieranie wiadomości
+def on_message(client, userdata, msg):
+  print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+
+client = mqtt.Client() # Tworzenie klienta MQTT
+client.connect("localhost", 1883) # Łączenie z brokerem MQTT
+client.subscribe("sensors/temperature") # Subskrybujemy temat 
+
+# Przypisujemy funkcję obsługującą odbieranie wiadomości
+client.on_message = on_message
+
+# Startujemy pętlę obsługi MQTT
+client.loop_forever()
+```
+
+---
+
+# Publikacja
+
+```python
+import paho.mqtt.client as mqtt
+
+# Funkcja wywoływana po pomyślnym połączeniu z brokerem
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("Successfully connected to the broker!")
+    else:
+        print(f"Failed to connect, return code {rc}")
+
+client = mqtt.Client() # Tworzymy nowego klienta MQTT
+
+# Rejestrujemy funkcję obsługi zdarzenia połączenia
+client.on_connect = on_connect
+client.connect("localhost", 1883) # Łączymy się z brokerem MQTT
+
+# Publikowanie wiadomości
+topic = "sensors/temperature"
+message = "25.5°C"
+
+# Publikujemy wiadomość na wybrany temat
+client.publish(topic, message)
+print(f"Published `{message}` to `{topic}` topic")
+
+client.disconnect() # Zamykamy połączenie
+```
+
+---
+
+class: inverse
+
+
+
+<div class="countdown" id="timer_22390f7a" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+# Zadanie
+
+Napisz program, który do tematu `tir_us/imie_pierwsza_litera_nazwiska/ram` będzie co 30 sekund publikować aktualne zużycie pamięci RAM komputera wyrażone w procentach. 
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "4:3",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
