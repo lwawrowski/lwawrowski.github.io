@@ -1,0 +1,221 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "AMQP"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+
+# Wprowadzenie do AMQP
+
+- **Definicja AMQP (Advanced Message Queuing Protocol):**  
+  Otwarty standard protokołu komunikacyjnego zaprojektowany do niezawodnej wymiany wiadomości w systemach rozproszonych.
+
+- **Cechy kluczowe:**
+  - Asynchroniczna komunikacja.
+  - Obsługa kolejek wiadomości.
+  - Routing wiadomości (Direct, Fanout, Topic).
+  - Bezpieczeństwo i niezawodność dzięki potwierdzeniom dostarczenia.
+
+- **Zastosowania:**
+  - Internet Rzeczy (IoT).
+  - Integracja usług w architekturze mikroserwisów.
+  - Kolejkowanie zadań w systemach rozproszonych.
+
+---
+
+# AMQP - Architektura
+
+- **Broker wiadomości (np. RabbitMQ):**
+  Zarządza przesyłaniem wiadomości między nadawcą a odbiorcą.
+
+- **Kluczowe elementy protokołu:**
+  - **Exchange:**  
+    Odpowiada za przyjmowanie wiadomości i ich routing do odpowiednich kolejek.
+  - **Queue:**  
+    Kolejki przechowują wiadomości dla odbiorców.
+  - **Binding:**  
+    Połączenie między Exchange a Queue zdefiniowane regułami routingu.
+  - **Routing Key:**  
+    Klucz określający sposób dostarczania wiadomości do kolejek.
+
+---
+
+# Wprowadzenie do RabbitMQ
+
+- **Czym jest RabbitMQ?**
+  - Popularny broker wiadomości oparty na AMQP.
+  - Skalowalny, niezawodny, wspierający wiele języków programowania.
+
+- **Dlaczego RabbitMQ?**
+  - Obsługa wielu protokołów (AMQP, MQTT, STOMP).
+  - Szeroki wachlarz scenariuszy routingu.
+  - Bogaty ekosystem narzędzi i wtyczek (np. RabbitMQ Management Plugin).
+
+- **Jak działa RabbitMQ?**
+  1. Producent wysyła wiadomość do Exchange.
+  2. Exchange przekazuje wiadomość do odpowiednich kolejek na podstawie Binding i Routing Key.
+  3. Konsument odbiera wiadomości z kolejki.
+
+---
+
+# Instalacja RabbitMQ
+
+- **Kroki instalacji RabbitMQ na Windows:**
+  - Pobierz RabbitMQ z [rabbitmq.com](https://www.rabbitmq.com/docs/install-windows).
+  - Uruchom RabbitMQ
+
+- **Dostęp do RabbitMQ Management GUI:**
+  - URL: http://localhost:15672
+  - Login: **guest** | Hasło: **guest**
+  
+---
+
+# Typy routingu w RabbitMQ
+
+1. **Direct Exchange:**
+   - Wiadomość jest dostarczana do kolejki na podstawie dokładnego dopasowania klucza routingu.
+
+2. **Fanout Exchange:**
+   - Wiadomość jest przesyłana do wszystkich kolejek powiązanych z Exchange.
+
+3. **Topic Exchange:**
+   - Wiadomość jest routowana na podstawie wzorców (np. `sensor.temperature`).
+
+4. **Headers Exchange:**
+   - Routing oparty na nagłówkach wiadomości.
+
+---
+
+# AMQP w pythonie
+
+- **Biblioteka:**  
+  W Pythonie do komunikacji z RabbitMQ używamy biblioteki **`pika`**:
+  ```bash
+  pip install pika
+  ```
+
+---
+
+## Producent - wysyłanie wiadomości
+
+```python
+import pika
+
+# Konfiguracja połączenia
+connection = pika.BlockingConnection(
+  pika.ConnectionParameters('localhost')
+)
+channel = connection.channel() # tworzy kanał komunikacyjny
+
+# Tworzenie exchange i kolejki
+channel.exchange_declare(exchange='iot_exchange', 
+                         exchange_type='direct')
+channel.queue_declare(queue='sensor_data')
+channel.queue_bind(exchange='iot_exchange', queue='sensor_data', 
+                   routing_key='sensor')
+
+# Publikowanie wiadomości
+message = "Temperature: 22.5°C"
+channel.basic_publish(exchange='iot_exchange', 
+                      routing_key='sensor', body=message)
+print(f"Sent: {message}")
+
+connection.close()
+```
+
+---
+
+## Konsument - odbieranie wiadomości
+
+```python
+import pika
+
+# Konfiguracja połączenia
+connection = pika.BlockingConnection(
+  pika.ConnectionParameters('localhost')
+)
+channel = connection.channel()
+
+# Tworzenie exchange i kolejki
+channel.exchange_declare(exchange='iot_exchange', 
+                         exchange_type='direct')
+channel.queue_declare(queue='sensor_data')
+channel.queue_bind(exchange='iot_exchange', queue='sensor_data', 
+                   routing_key='sensor')
+
+# Funkcja obsługująca wiadomości
+def callback(ch, method, properties, body):
+    print(f"Received: {body.decode()}")
+
+# Subskrypcja kolejki
+channel.basic_consume(queue='sensor_data', 
+  on_message_callback=callback, auto_ack=True)
+
+print("Waiting for messages...")
+channel.start_consuming()
+```
+---
+
+# Zastosowania AMQP
+
+- **Przesyłanie danych z urządzeń IoT:**
+  - Czujniki temperatury, wilgotności, ciśnienia.
+
+- **Integracja mikroserwisów:**
+  - Efektywna wymiana danych między komponentami systemu.
+
+- **Przetwarzanie w czasie rzeczywistym:**
+  - Kolejkowanie danych do dalszego przetwarzania (np. w systemach big data).
+
+---
+
+class: inverse
+
+```{r include=FALSE}
+library(countdown)
+```
+
+`r countdown(minutes = 15, seconds = 0, top = 0)`
+
+# Zadanie
+
+Napisz program, który do kolejki `ram_usage` będzie co 30 sekund publikować aktualne zużycie pamięci RAM komputera wyrażone w procentach. 
+
+---
+
+# AMQP vs MQTT - zalety
+
+| **Kryterium**       | **AMQP**                                         | **MQTT**                                                |
+|----------------------|------------------------------------------------------------|---------------------------------------------------------|
+| **Wszechstronność**  | Obsługuje różne typy routingu.      | Prosty protokół dla urządzeń IoT.       |
+| **Niezawodność**     | Zapewnia potwierdzenia dostarczenia. | Lekki protokół z potwierdzeniami QoS.                  |
+| **Elastyczność**     | Obsługa nagłówków i rozbudowana struktura wiadomości.       | Minimalny narzut komunikacyjny.  |
+| **Monitoring**       | Rozbudowane narzędzia do monitorowania. | Łatwy do wdrożenia w prostych systemach IoT.         |
+| **Skalowalność**     | Doskonały do dużych systemów i architektur mikroserwisowych. | Prosty w obsłudze dla małych systemów.                 |
+
+---
+
+# AMQP vs MQTT - wady
+| **Kryterium**       | **AMQP**                                         | **MQTT**                                                |
+|----------------------|------------------------------------------------------------|---------------------------------------------------------|
+| **Złożoność**        | Większy narzut na zasoby systemowe.                         | Brak wsparcia dla zaawansowanych mechanizmów routingu. |
+| **Konfiguracja**     | Wymaga brokera (np. RabbitMQ) i więcej ustawień.            | Protokół lekkiej komunikacji, ale mniejsza funkcjonalność. |
+| **Wiadomości**         | Większy rozmiar wiadomości i bardziej rozbudowane protokoły. | Brak zaawansowanych funkcji (np. obsługa nagłówków).   |
+| **Zastosowanie**     | Najlepszy w systemach wymagających dużej niezawodności i routingu. | Dedykowany dla prostych urządzeń o ograniczonych zasobach. |
+
+---
+
+class: center, middle, inverse
+
+# Pytania?

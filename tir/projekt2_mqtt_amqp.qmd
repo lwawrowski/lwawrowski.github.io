@@ -1,0 +1,21 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Projekt 2 - AMQP i MQTT"
+format: pdf
+---
+
+Celem projektu jest wykorzystanie brokerów wiadomości do symulacji wymiany informacji pomiędzy urządzeniami IoT. 
+
+Projekt jest pracą grupową w zespołach 2-3 osobowych. Podstawą oceny jest sprawozdanie zawierające opis przeprowadzonych prac oraz plik programu.
+
+Projekt musi spełniać następujące wymagania:
+
+- wykorzystanie protokołu MQTT,
+
+- symulacja komunikacji pomiędzy co najmniej dwoma urządzeniami IoT użytych w projekcie nr 1,
+
+- przesyłanie co najmniej jednej wartości.
+
+Spełnienie wymienionych wymagań w minimalnym stopniu skutkuje oceną dostateczną. Ocenie podlega także staranność wykonania projektu i sprawozdania.
+
+Wykorzystanie protokołu AMQP, a także stworzenie symulacji komunikacji pomiędzy większą liczbą urządzeń skutkuje podwyższeniem wyjściowej oceny.
