@@ -81,7 +81,13 @@ output:
   
 ---
 
-# Typy routingu w RabbitMQ
+# Klient zdalny
+
+https://www.cloudamqp.com/ to zarządzana usługa oferująca instancje RabbitMQ w chmurze. Umożliwia szybkie wdrożenie i skalowanie systemów opartych na AMQP bez konieczności zarządzania infrastrukturą. 
+
+---
+
+# Typy routingu
 
 1. **Direct Exchange:**
    - Wiadomość jest dostarczana do kolejki na podstawie dokładnego dopasowania klucza routingu.
