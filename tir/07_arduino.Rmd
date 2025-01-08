@@ -1,0 +1,222 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Arduino"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+# Arduino Opla IoT Kit
+
+- MKR Wifi 1010 Board
+
+- MKR IoT Carrier
+
+---
+
+# Struktura programu Arduino
+
+- `setup()`: Kod uruchamiany raz na początku.
+
+- `loop()`: Kod wykonywany w pętli.
+
+```cpp
+void setup() {
+  // put your setup code here, to run once:
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
+
+```
+
+---
+
+# Migająca dioda LED - pseudokod
+
+```cpp
+void setup() {
+  pinMode(13, OUTPUT); // Ustaw pin 13 jako wyjście
+}
+
+void loop() {
+  digitalWrite(13, HIGH); // Włącz diodę
+  delay(1000);            // Czekaj 1 sekundę
+  digitalWrite(13, LOW);  // Wyłącz diodę
+  delay(1000);            // Czekaj 1 sekundę
+}
+```
+---
+
+# Migająca dioda
+
+Wymagania:
+
+- Arduino IDE
+
+- Biblioteka WiFiNINA
+
+- Arduino MKR WiFi 1010 (Board: Arduino SAMD Boards)
+
+[Tutorial](https://docs.arduino.cc/tutorials/mkr-wifi-1010/built-in-rgb/)
+
+---
+
+class: inverse
+
+```{r include=FALSE}
+library(countdown)
+```
+
+`r countdown(minutes = 15, seconds = 0, top = 0)`
+
+# Zadanie
+
+Napisz program, który będzie symulował pracę sygnalizatora świetlnego dla pieszych - czerwone światło (10 sekund), zielone (8 sekund), migające zielone (2 sekundy). 
+
+???
+
+```cpp
+#include <WiFiNINA.h> 
+#include <utility/wifi_drv.h>
+
+void setup() {
+  // Definiowanie pinów dla diody RGB
+  WiFiDrv::pinMode(25, OUTPUT); // Czerwony
+  WiFiDrv::pinMode(26, OUTPUT); // Zielony 
+  WiFiDrv::pinMode(27, OUTPUT); // Niebieski (nieużywany w tym przypadku)
+}
+
+void loop() {
+  // Czerwone światło - 10 sekund
+  WiFiDrv::analogWrite(25, 255);   // Zielony wyłączony
+  WiFiDrv::analogWrite(26, 0); // Czerwony włączony
+  WiFiDrv::analogWrite(27, 0);   // Niebieski wyłączony
+  delay(10000);                  // Czekaj 10 sekund
+
+  // Zielone światło - 8 sekund
+  WiFiDrv::analogWrite(25, 0); // Zielony włączony
+  WiFiDrv::analogWrite(26, 255);   // Czerwony wyłączony
+  WiFiDrv::analogWrite(27, 0);   // Niebieski wyłączony
+  delay(8000);                   // Czekaj 8 sekund
+
+  // Migające zielone światło - 2 sekundy
+  for (int i = 0; i < 5; i++) {  // 5 cykli po 400 ms
+    WiFiDrv::analogWrite(26, 255); // Zielony włączony
+    delay(200);                    // Włączony przez 200 ms
+  
+    WiFiDrv::analogWrite(26, 0);   // Zielony wyłączony
+    delay(200);                    // Wyłączony przez 200 ms
+    
+  }
+}
+```
+
+---
+
+# Czujniki
+
+Wymagania:
+
+- Arduino IDE
+
+- Biblioteka ArduinoMKRIoTCarrier
+
+- Arduino MKR WiFi 1010 (Board: Arduino SAMD Boards) + MKR IoT Carrier
+
+[Tutorial](https://docs.arduino.cc/tutorials/mkr-iot-carrier/mkr-iot-carrier-01-technical-reference/)
+
+[Datasheet](https://content.arduino.cc/assets/MKR%20IoT%20Carrier%20-%20Datasheet.pdf)
+
+---
+
+# Inicjalizacja
+
+```cpp
+#include <Arduino_MKRIoTCarrier.h>
+
+MKRIoTCarrier carrier;
+
+void setup() {
+  carrier.noCase(); // carrier.withCase();
+  carrier.begin();
+}
+
+
+```
+
+---
+
+# Odczyt danych
+
+```cpp
+void loop() {
+
+  float temperature = carrier.Env.readTemperature();
+  float humidity = carrier.Env.readHumidity();
+
+  Serial.println(temperature);
+  Serial.println(humidity);
+
+  delay(1000);
+  
+}
+```
+
+---
+
+# Ekran
+
+```cpp
+  carrier.display.fillScreen(0x0000);
+  carrier.display.setRotation(0); // 1,2,3
+  carrier.display.setTextColor(0xFFFF);
+  carrier.display.setTextSize(3);
+  carrier.display.setCursor(120, 120); // 240 x 240
+  carrier.display.print(temperature);
+
+```
+
+---
+
+class: inverse
+
+`r countdown(minutes = 15, seconds = 0, top = 0)`
+
+# Zadanie
+
+Napisz program, który powiąże poziom wilgotności powietrza z kolorem diod LED np. do 30% kolor zielony, a powyżej 30% kolor czerwony.
+
+---
+
+class: inverse
+
+`r countdown(minutes = 15, seconds = 0, top = 0)`
+
+# Zadanie
+
+Napisz program, który będzie zmieniał wyświetlane wartości czujników w zależności od wybranego przycisku.
+
+---
+
+# Czujnik ruchu
+
+https://arduinogetstarted.com/tutorials/arduino-motion-sensor
+
+---
+
+class: center, middle, inverse
+
+# Pytania?

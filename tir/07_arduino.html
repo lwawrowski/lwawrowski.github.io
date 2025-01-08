@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Technologie Internetu Rzeczy</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="© Łukasz Wawrowski" />
+    <script src="libs/header-attrs-2.22/header-attrs.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <link rel="stylesheet" href="default-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Technologie Internetu Rzeczy
+]
+.subtitle[
+## Arduino
+]
+.author[
+### © Łukasz Wawrowski
+]
+
+---
+
+
+# Arduino Opla IoT Kit
+
+- MKR Wifi 1010 Board
+
+- MKR IoT Carrier
+
+---
+
+# Struktura programu Arduino
+
+- `setup()`: Kod uruchamiany raz na początku.
+
+- `loop()`: Kod wykonywany w pętli.
+
+```cpp
+void setup() {
+  // put your setup code here, to run once:
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
+
+```
+
+---
+
+# Migająca dioda LED - pseudokod
+
+```cpp
+void setup() {
+  pinMode(13, OUTPUT); // Ustaw pin 13 jako wyjście
+}
+
+void loop() {
+  digitalWrite(13, HIGH); // Włącz diodę
+  delay(1000);            // Czekaj 1 sekundę
+  digitalWrite(13, LOW);  // Wyłącz diodę
+  delay(1000);            // Czekaj 1 sekundę
+}
+```
+---
+
+# Migająca dioda
+
+Wymagania:
+
+- Arduino IDE
+
+- Biblioteka WiFiNINA
+
+- Arduino MKR WiFi 1010 (Board: Arduino SAMD Boards)
+
+[Tutorial](https://docs.arduino.cc/tutorials/mkr-wifi-1010/built-in-rgb/)
+
+---
+
+class: inverse
+
+
+
+<div class="countdown" id="timer_25cab941" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+# Zadanie
+
+Napisz program, który będzie symulował pracę sygnalizatora świetlnego dla pieszych - czerwone światło (10 sekund), zielone (8 sekund), migające zielone (2 sekundy). 
+
+???
+
+```cpp
+#include &lt;WiFiNINA.h&gt; 
+#include &lt;utility/wifi_drv.h&gt;
+
+void setup() {
+  // Definiowanie pinów dla diody RGB
+  WiFiDrv::pinMode(25, OUTPUT); // Czerwony
+  WiFiDrv::pinMode(26, OUTPUT); // Zielony 
+  WiFiDrv::pinMode(27, OUTPUT); // Niebieski (nieużywany w tym przypadku)
+}
+
+void loop() {
+  // Czerwone światło - 10 sekund
+  WiFiDrv::analogWrite(25, 255);   // Zielony wyłączony
+  WiFiDrv::analogWrite(26, 0); // Czerwony włączony
+  WiFiDrv::analogWrite(27, 0);   // Niebieski wyłączony
+  delay(10000);                  // Czekaj 10 sekund
+
+  // Zielone światło - 8 sekund
+  WiFiDrv::analogWrite(25, 0); // Zielony włączony
+  WiFiDrv::analogWrite(26, 255);   // Czerwony wyłączony
+  WiFiDrv::analogWrite(27, 0);   // Niebieski wyłączony
+  delay(8000);                   // Czekaj 8 sekund
+
+  // Migające zielone światło - 2 sekundy
+  for (int i = 0; i &lt; 5; i++) {  // 5 cykli po 400 ms
+    WiFiDrv::analogWrite(26, 255); // Zielony włączony
+    delay(200);                    // Włączony przez 200 ms
+  
+    WiFiDrv::analogWrite(26, 0);   // Zielony wyłączony
+    delay(200);                    // Wyłączony przez 200 ms
+    
+  }
+}
+```
+
+---
+
+# Czujniki
+
+Wymagania:
+
+- Arduino IDE
+
+- Biblioteka ArduinoMKRIoTCarrier
+
+- Arduino MKR WiFi 1010 (Board: Arduino SAMD Boards) + MKR IoT Carrier
+
+[Tutorial](https://docs.arduino.cc/tutorials/mkr-iot-carrier/mkr-iot-carrier-01-technical-reference/)
+
+[Datasheet](https://content.arduino.cc/assets/MKR%20IoT%20Carrier%20-%20Datasheet.pdf)
+
+---
+
+# Inicjalizacja
+
+```cpp
+#include &lt;Arduino_MKRIoTCarrier.h&gt;
+
+MKRIoTCarrier carrier;
+
+void setup() {
+  carrier.noCase(); // carrier.withCase();
+  carrier.begin();
+}
+
+
+```
+
+---
+
+# Odczyt danych
+
+```cpp
+void loop() {
+
+  float temperature = carrier.Env.readTemperature();
+  float humidity = carrier.Env.readHumidity();
+
+  Serial.println(temperature);
+  Serial.println(humidity);
+
+  delay(1000);
+  
+}
+```
+
+---
+
+# Ekran
+
+```cpp
+  carrier.display.fillScreen(0x0000);
+  carrier.display.setRotation(0); // 1,2,3
+  carrier.display.setTextColor(0xFFFF);
+  carrier.display.setTextSize(3);
+  carrier.display.setCursor(120, 120); // 240 x 240
+  carrier.display.print(temperature);
+
+```
+
+---
+
+class: inverse
+
+<div class="countdown" id="timer_ea1b5216" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+# Zadanie
+
+Napisz program, który powiąże poziom wilgotności powietrza z kolorem diod LED np. do 30% kolor zielony, a powyżej 30% kolor czerwony.
+
+---
+
+class: inverse
+
+<div class="countdown" id="timer_d0d4d267" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+# Zadanie
+
+Napisz program, który będzie zmieniał wyświetlane wartości czujników w zależności od wybranego przycisku.
+
+---
+
+# Czujnik ruchu
+
+https://arduinogetstarted.com/tutorials/arduino-motion-sensor
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "4:3",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
