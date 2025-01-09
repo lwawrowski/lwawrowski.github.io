@@ -1,0 +1,19 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Projekt 3 - MCU"
+format: pdf
+---
+
+Celem projektu jest wykorzystanie mikrokontrolerów do budowy prototypu urządzenia smart home. 
+
+Projekt jest pracą grupową w zespołach 2-3 osobowych. Podstawą oceny jest sprawozdanie zawierające opis przeprowadzonych prac oraz prezentacja na zajęciach.
+
+Projekt musi spełniać następujące wymagania:
+
+- wysyłanie zbieranych danych przez protokół MQTT,
+
+- interakcja z otoczeniem na podstawie zbieranych danych np. zmiana koloru diody w zależności od wartości, uruchomienie alarmu po wykryciu ruchu.
+
+Spełnienie wymienionych wymagań w minimalnym stopniu skutkuje oceną dostateczną. Ocenie podlega także staranność wykonania projektu i sprawozdania.
+
+Rozszerzenie funkcjonalności poprzez np. aplikację webową, dwustronną komunikację, wykorzystanie wielu czujników. itp. będzie skutkowało podwyższeniem oceny.

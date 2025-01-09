@@ -213,7 +213,19 @@ Napisz program, który będzie zmieniał wyświetlane wartości czujników w zal
 
 # Czujnik ruchu
 
-https://arduinogetstarted.com/tutorials/arduino-motion-sensor
+```cpp
+
+void setup() {
+  pinMode(A6, INPUT);
+}
+
+void loop() {
+  Serial.println(digitalRead(A6));
+}  
+
+```
+
+[Tutorial](https://arduinogetstarted.com/tutorials/arduino-motion-sensor)
 
 ---
 

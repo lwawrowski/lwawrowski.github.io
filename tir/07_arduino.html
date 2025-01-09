@@ -90,7 +90,7 @@ class: inverse
 
 
 
-<div class="countdown" id="timer_25cab941" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_b8f93a98" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -206,7 +206,7 @@ void loop() {
 
 class: inverse
 
-<div class="countdown" id="timer_ea1b5216" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_2faa1ac7" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -219,7 +219,7 @@ Napisz program, który powiąże poziom wilgotności powietrza z kolorem diod LE
 
 class: inverse
 
-<div class="countdown" id="timer_d0d4d267" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_c881c465" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -232,7 +232,19 @@ Napisz program, który będzie zmieniał wyświetlane wartości czujników w zal
 
 # Czujnik ruchu
 
-https://arduinogetstarted.com/tutorials/arduino-motion-sensor
+```cpp
+
+void setup() {
+  pinMode(A6, INPUT);
+}
+
+void loop() {
+  Serial.println(digitalRead(A6));
+}  
+
+```
+
+[Tutorial](https://arduinogetstarted.com/tutorials/arduino-motion-sensor)
 
 ---
 
