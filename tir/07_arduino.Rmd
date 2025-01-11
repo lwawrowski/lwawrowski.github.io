@@ -44,7 +44,7 @@ void loop() {
 
 ---
 
-# Migająca dioda LED - pseudokod
+## Migająca dioda LED - przykład
 
 ```cpp
 void setup() {
@@ -199,6 +199,22 @@ class: inverse
 
 Napisz program, który powiąże poziom wilgotności powietrza z kolorem diod LED np. do 30% kolor zielony, a powyżej 30% kolor czerwony.
 
+???
+
+```cpp
+uint32_t green = carrier.leds.Color(0,255,0);
+uint32_t red = carrier.leds.Color(255,0,0);
+
+carrier.leds.setBrightness(25);
+
+if (humidity <= 40) {
+  carrier.leds.fill(green, 0, 5);
+} else {
+  carrier.leds.fill(red, 0, 5);
+}
+carrier.leds.show();
+```
+
 ---
 
 class: inverse
@@ -208,6 +224,72 @@ class: inverse
 # Zadanie
 
 Napisz program, który będzie zmieniał wyświetlane wartości czujników w zależności od wybranego przycisku.
+
+???
+
+```cpp
+#include <Arduino_MKRIoTCarrier.h>
+
+MKRIoTCarrier carrier;
+
+int selectedSensor = 0; 
+
+void setup() {
+
+  carrier.noCase(); // carrier.withCase();
+  carrier.begin();
+
+}
+
+void loop() {
+
+  carrier.Buttons.update();
+
+  if (carrier.Buttons.onTouchDown(TOUCH0)) {
+    selectedSensor = 0; // Wilgotność
+  } else if (carrier.Buttons.onTouchDown(TOUCH1)) {
+    selectedSensor = 1; // Temperatura
+  } else if (carrier.Buttons.onTouchDown(TOUCH3)) {
+    selectedSensor = 2; // Ciśnienie
+  }
+
+  carrier.display.fillScreen(0x0000);
+  carrier.display.setRotation(0); // 1,2,3
+  carrier.display.setTextColor(0xFFFF);
+  carrier.display.setTextSize(3);
+  carrier.display.setCursor(20, 80); // 240 x 240
+
+  switch (selectedSensor) {
+    case 0: {
+      float humidity = carrier.Env.readHumidity();
+      carrier.display.println("Wilgotnosc: ");
+      carrier.display.print("  ");
+      carrier.display.print(humidity);
+      carrier.display.print(" %");
+      break;
+    }
+    case 1: {
+      float temperature = carrier.Env.readTemperature();
+      carrier.display.println("Temperatura: ");
+      carrier.display.print("  ");
+      carrier.display.print(temperature);
+      carrier.display.print(" C");
+      break;
+    }
+    case 2: {
+      float pressure = carrier.Pressure.readPressure();
+      carrier.display.println("Cisnienie: ");
+      carrier.display.print("  ");
+      carrier.display.print(pressure);
+      carrier.display.print(" hPa");
+      break;
+    }
+  }
+
+  delay(1000);
+
+}
+```
 
 ---
 

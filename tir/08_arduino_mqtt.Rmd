@@ -1,0 +1,196 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Arduino + MQTT"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+## Przesyłanie danych przez MQTT
+
+Wymagania:
+
+- Arduino IDE
+
+- Biblioteka ArduinoMqttClient
+
+- Arduino MKR WiFi 1010 (Board: Arduino SAMD Boards) + MKR IoT Carrier
+
+[Tutorial](https://docs.arduino.cc/tutorials/uno-wifi-rev2/uno-wifi-r2-mqtt-device-to-device/)
+
+---
+
+# Dostęp do internetu
+
+plik `arduino_secrets.h`
+
+```cpp
+#define SECRET_SSID ""
+#define SECRET_PASS ""
+```
+
+---
+
+# Inicjalizacja
+
+```cpp
+#include <Arduino_MKRIoTCarrier.h>
+#include <ArduinoMqttClient.h>
+#include <WiFiNINA.h>
+#include "arduino_secrets.h"
+
+char ssid[] = SECRET_SSID;        // your network SSID (name)
+char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
+
+MKRIoTCarrier carrier;
+WiFiClient wifiClient;
+MqttClient mqttClient(wifiClient);
+```
+---
+
+class: center, middle, inverse
+
+# Publikacja
+
+---
+
+# Stałe
+
+```cpp
+const char broker[] = "mqtt.eclipseprojects.io";
+int        port     = 1883;
+const char topic[]  = "lukasz_w/arduino/temp";
+
+//set interval for sending messages (milliseconds)
+const long interval = 8000;
+unsigned long previousMillis = 0;
+
+```
+
+---
+
+## Setup - połączenie z internetem
+
+```cpp
+// attempt to connect to Wifi network:
+Serial.print("Attempting to connect to WPA SSID: ");
+Serial.println(ssid);
+while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
+  // failed, retry
+  Serial.print(".");
+  delay(5000);
+}
+
+Serial.println("You're connected to the network");
+Serial.println();
+```
+
+---
+
+## Setup - połączenie z brokerem
+
+```cpp
+Serial.print("Attempting to connect to the MQTT broker: ");
+Serial.println(broker);
+
+if (!mqttClient.connect(broker, port)) {
+  Serial.print("MQTT connection failed! Error code = ");
+  Serial.println(mqttClient.connectError());
+
+  while (1);
+}
+
+Serial.println("You're connected to the MQTT broker!");
+Serial.println();
+```
+
+---
+
+# Loop - wysyłanie danych 
+
+```cpp
+mqttClient.poll();
+
+unsigned long currentMillis = millis();
+
+if (currentMillis - previousMillis >= interval) {
+  
+  previousMillis = currentMillis;
+
+  float temperature = carrier.Env.readTemperature();
+  
+  mqttClient.beginMessage(topic);
+  mqttClient.print(temperature);
+  mqttClient.endMessage();
+  
+}
+
+```
+---
+
+class: center, middle, inverse
+
+# Subskrypcja
+
+---
+
+## Setup - odbieranie wiadomości
+
+```cpp
+mqttClient.subscribe(topic);
+```
+
+---
+
+# Loop - odbieranie danych
+
+```cpp
+void loop() {
+  // call poll() regularly to allow the library to receive MQTT messages and
+  // send MQTT keep alive which avoids being disconnected by the broker
+  mqttClient.poll();
+  
+ if (mqttClient.available()) {
+  String topic = mqttClient.messageTopic();
+  String message = mqttClient.readString();
+
+  Serial.print("Otrzymano wiadomość na temat: ");
+  Serial.print(topic);
+  Serial.print(" -> ");
+  Serial.println(message);
+ }
+}
+```
+
+---
+
+# Ćwiczenie
+
+Włącz buzzer po przekroczeniu określonego poziomu RAM.
+
+---
+
+# AMQP
+
+Protokół AMQP (Advanced Message Queuing Protocol) nie jest powszechnie dostępny na Arduino z kilku powodów:
+
+- Złożoność protokołu
+
+- Ograniczenia zasobów na platformach Arduino
+
+- Brak powszechnych bibliotek AMQP dla Arduino
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
