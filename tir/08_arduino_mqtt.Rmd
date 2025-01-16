@@ -137,6 +137,40 @@ if (currentMillis - previousMillis >= interval) {
 ```
 ---
 
+class: inverse
+
+# Zadanie
+
+```{r include=FALSE}
+library(countdown)
+```
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+Opublikuj dane z sensorów w formacie JSON w temacie `tir_us/imie_pierwsza_litera_nazwiska/data` np:
+
+```json
+{
+  "temperature": 22.5,
+  "humidity": 45.3,
+  "pressure": 98.2
+}
+```
+
+???
+
+```cpp
+  String payload = "{";
+  payload += "\"temperature\":" + String(temperature) + ",";
+  payload += "\"humidity\":" + String(humidity) + ",";
+  payload += "\"light\":" + String(light);
+  payload += "}";
+  
+  // Publikacja danych
+  client.publish(topic, payload.c_str());
+```
+---
+
 class: center, middle, inverse
 
 # Subskrypcja
@@ -173,9 +207,13 @@ void loop() {
 
 ---
 
-# Ćwiczenie
+class: inverse
 
-Włącz buzzer po przekroczeniu określonego poziomu RAM.
+# Zadanie
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+Włącz buzzer po otrzymaniu odpowiedniej wiadomości z tematu `lukasz_w/laptop/ram`.
 
 ---
 
