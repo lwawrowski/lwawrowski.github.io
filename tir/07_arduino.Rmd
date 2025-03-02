@@ -15,6 +15,22 @@ output:
 
 ---
 
+# Źródła wiedzy
+
+- dokumentacja Arduino
+
+- kurs Navoica np. [Internet Rzeczy](https://navoica.pl/courses/course-v1:Wyzsza_Szkola_Gospodarki_w_Bydgoszczy+WSG-03+2023_3/course/)
+
+- [kurs Forbot](https://forbot.pl/blog/kurs-arduino-podstawy-programowania-spis-tresci-kursu-id5290)
+
+- [tinkerpad](https://www.tinkercad.com/) - symulacja Arduino
+
+- [wokwi](https://wokwi.com/) - symulator Arduino
+
+- [Node-RED](https://nodered.org/) - low-code 
+
+---
+
 # Arduino Opla IoT Kit
 
 - MKR Wifi 1010 Board

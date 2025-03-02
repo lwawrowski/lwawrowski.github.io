@@ -98,7 +98,9 @@ output:
 2. **AWS IoT Core:**  
    - Rozwiązania chmurowe wspierające MQTT dla aplikacji IoT.  
 3. **Eclipse Mosquitto:**  
-   - Open-source’owy broker MQTT dla małych i dużych aplikacji.  
+   - Open-source’owy broker MQTT dla małych i dużych aplikacji.
+4. **HomeHabit:**
+   - aplikacja do stworzenia dashboardów
 
 ---
 
