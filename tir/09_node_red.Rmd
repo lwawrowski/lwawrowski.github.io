@@ -116,7 +116,7 @@ Z menu z prawej strony przycisku Deploy, wybieramy pozycję Manage palette. Prze
 
 # Interfejs użytkownika
 
-Node-RED pozwala tworzyć proste dashboardy. W tym celu instalujemy pakiet `node-red-dasboard`.
+Node-RED pozwala tworzyć proste dashboardy. W tym celu instalujemy pakiet `node-red-dashboard`.
 
 Dashboard dostępny jest pod adresem localhost:1880/ui
 
