@@ -128,6 +128,8 @@ Dashboard dostępny jest pod adresem localhost:1880/ui
 
 - blok _mqtt out_ - wysyła dane do danego tematu do brokera MQTT
 
+Broker eclipse: mqtt.eclipseprojects.io
+
 ---
 
 class: center, middle, inverse
