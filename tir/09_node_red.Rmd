@@ -1,0 +1,135 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Node RED"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+# Platforma Wokwi
+
+Co to jest Wokwi?
+
+- Online'owa symulacja mikrokontrolerów i układów Arduino/ESP32
+
+- Przeglądarkowa aplikacja bez potrzeby instalacji
+
+- Obsługuje popularne komponenty: LED, czujniki, wyświetlacze, ESP32, Raspberry Pi Pico itp.
+
+Zalety:
+
+- Natychmiastowa symulacja kodu i elektroniki
+
+- Obsługa Wi-Fi i MQTT dla ESP32
+
+- Współdzielenie projektów przez linki
+
+Link: https://wokwi.com/
+
+Można korzystać przez Visual Studio Code.
+
+---
+
+# Przykładowe projekty
+
+- czujnik wilgotności i temperatury https://wokwi.com/projects/322577683855704658
+
+
+---
+
+# Node-RED
+
+Co to jest Node-RED?
+
+- Narzędzie open-source do **tworzenia przepływów danych (flows)** przy użyciu graficznego interfejsu.
+
+- Oparte na **JavaScript i Node.js** – ale nie wymaga programowania.
+
+- Umożliwia łatwe łączenie **urządzeń IoT, API, usług sieciowych i danych**.
+
+Kluczowe możliwości:
+
+- Obsługa **MQTT, HTTP, WebSocket, TCP/UDP, Modbus** i wielu innych protokołów.
+
+- Możliwość tworzenia **dashboardów** (paneli użytkownika).
+
+- Wbudowana biblioteka gotowych komponentów (tzw. *nodes*).
+
+- Możliwość hostowania lokalnie lub online
+
+https://nodered.org/
+
+---
+
+# Instalacja z docker
+
+Za pierwszym razem
+
+```bash
+docker run -it -p 1880:1880 -v node_red_data:/data --name mynodered nodered/node-red
+```
+
+Kolejne uruchomienia
+
+```bash
+docker start mynodered
+docker stop mynodered
+```
+
+Dostęp przez przeglądarkę: http://localhost:1880/
+
+https://nodered.org/docs/getting-started/docker
+
+
+---
+
+# Pierwszy program
+
+- blok _inject_
+
+- blok _debug_
+
+---
+
+# Funkcje bazowe
+
+- blok _change_ - służy do zmiany właściwości przesyłanych komunikatów w diagramie przepływów.
+
+- blok _switch_ - pozwala na przekierowanie wiadomości do kolejnych bloków funkcyjnych, w zależności od przesyłanej zawartości.
+
+- blok _function_ - umożliwia wykonanie operacji na komunikacie dostarczonym do wejścia, przez kod napisany w JavaScript, wprowadzony wewnątrz tego bloku.
+
+Dodatkowe pakiety:
+
+Z menu z prawej strony przycisku Deploy, wybieramy pozycję Manage palette. Przechodzimy na zakładkę Install i wyszukujemy za pomocą słowa kluczowego _cpu_ pakiet `node-red-contrib-cpu`.
+
+---
+
+# Interfejs użytkownika
+
+Node-RED pozwala tworzyć proste dashboardy. W tym celu instalujemy pakiet `node-red-dasboard`.
+
+Dashboard dostępny jest pod adresem localhost:1880/ui
+
+---
+
+# MQTT
+
+- blok _mqtt in_ - pobiera dane z danego tematu z brokera MQTT
+
+- blok _mqtt out_ - wysyła dane do danego tematu do brokera MQTT
+
+---
+
+class: center, middle, inverse
+
+# Pytania?

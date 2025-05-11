@@ -23,19 +23,19 @@ output:
 
 - [kurs Forbot](https://forbot.pl/blog/kurs-arduino-podstawy-programowania-spis-tresci-kursu-id5290)
 
-- [tinkerpad](https://www.tinkercad.com/) - symulacja Arduino
+- [wokwi](https://wokwi.com/) - symulator Arduino/ESP
 
-- [wokwi](https://wokwi.com/) - symulator Arduino
+- [Node-RED](https://nodered.org/) - tworzenie aplikacji
 
-- [Node-RED](https://nodered.org/) - low-code 
+- [tinkercad](https://www.tinkercad.com/) - projektowanie 
 
 ---
 
 # Arduino Opla IoT Kit
 
-- MKR Wifi 1010 Board
+- [MKR Wifi 1010 Board](https://docs.arduino.cc/hardware/mkr-wifi-1010/)
 
-- MKR IoT Carrier
+- [MKR IoT Carrier](https://docs.arduino.cc/hardware/mkr-iot-carrier/)
 
 ---
 
@@ -60,7 +60,7 @@ void loop() {
 
 ---
 
-## Migająca dioda LED - przykład
+## Migająca dioda LED - przykład uniwersalny
 
 ```cpp
 void setup() {
@@ -87,6 +87,10 @@ Wymagania:
 - Arduino MKR WiFi 1010 (Board: Arduino SAMD Boards)
 
 [Tutorial](https://docs.arduino.cc/tutorials/mkr-wifi-1010/built-in-rgb/)
+
+---
+
+
 
 ---
 

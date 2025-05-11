@@ -17,3 +17,5 @@ Projekt musi spełniać następujące wymagania:
 Spełnienie wymienionych wymagań w minimalnym stopniu skutkuje oceną dostateczną. Ocenie podlega także staranność wykonania projektu i sprawozdania.
 
 Rozszerzenie funkcjonalności poprzez np. aplikację webową, dwustronną komunikację, wykorzystanie wielu czujników. itp. będzie skutkowało podwyższeniem oceny.
+
+Można rozszerzyć projekty realizowane podczas innych zajęć lub hobbistycznie. Osoby, które nie posiadają własnych zestawów Arduino będą mogły zrealizować projekt podczas ostatnich zajęć stacjonarnych. 

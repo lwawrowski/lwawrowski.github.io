@@ -12,10 +12,10 @@ Projekt musi spełniać następujące wymagania:
 
 - wykorzystanie różnych połączeń pomiędzy urządzeniami - co najmniej jednego typu bezprzewodowego i jednego typu przewodowego,
 
-- stworzenie co najmniej dwóch nowych urządzeń IoT,
+- stworzenie co najmniej dwóch nowych urządzeń IoT np. inteligentne drzwi dla zwierząt, automatyczne biurko (należy zweryfikować czy tworzone urządzenia już nie występują w programie PT),
 
 - zmiana wartości zmiennych środowiskowych - co najmniej jedna wartość,
 
-- uwzględnienie co najmniej czterech warunków wpływających na działanie urządzeń.
+- uwzględnienie co najmniej czterech warunków wpływających na działanie urządzeń (bezpośrednio lub z wykorzystaniem MCU).
 
 Spełnienie wymienionych wymagań w minimalnym stopniu skutkuje oceną dostateczną. Ocenie podlega także staranność wykonania projektu i sprawozdania oraz jakość prezentacji.
