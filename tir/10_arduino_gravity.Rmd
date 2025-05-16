@@ -1,0 +1,82 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "Arduino Uno"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+# Gravity Starter Kit
+
+- DFRduino UNO R3
+- IO Expansion Shield for Arduino V7.1 
+- Digital Piranha LED Module-Red 
+- Digital Piranha LED Module-Green 
+- Digital piranha LED module-Yellow 
+- Digital Push Button (Yellow)
+- Analog Ambient Light Sensor
+- Analog Sound Sensor
+- Analog Rotation Sensor V1
+- Digital Buzzer Module
+- PIR (Motion) Sensor
+- Digital Tilt Sensor for Arduino V2
+- Adjustable Infrared Distance Sensor
+- 9g Metal Gear Micro Servo (1.8Kg)
+- 6xAA Battery Holder with DC2.1 Power Jack
+- USB Cable A-B for Arduino 
+
+---
+
+# DFRduino Uno
+
+![](img/dfrduino uno.png)
+
+---
+
+# I/O Expansion Shield V7.1
+
+![](img/uno.png)
+
+
+---
+
+# Sygnał cyfrowy i analogowy
+
+![](img/analog_digital.png)
+
+---
+
+class: inverse
+
+# Zadanie
+
+```{r include=FALSE}
+library(countdown)
+```
+
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+- Lampka z czujnikiem ruchu i zmierzchu.
+
+- Włącznik cyfrowy do diody LED
+
+- Potencjometr do sterowania jasnością diody
+
+---
+
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
