@@ -67,26 +67,161 @@ class: center, middle, inverse, title-slide
 
 ---
 
-class: inverse
+# Przycisk
 
-# Zadanie
+```c
+int pushButton = 2; 
 
+void setup(){
+  Serial.begin(9600); 
+  pinMode(pushButton, INPUT); 
+}
 
-
-
-<div class="countdown" id="timer_35ddd6c9" data-update-every="1" tabindex="0" style="top:0;right:0;">
-<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
-
-- Lampka z czujnikiem ruchu i zmierzchu.
-
-- Włącznik cyfrowy do diody LED
-
-- Potencjometr do sterowania jasnością diody
+void loop() { 
+  int buttonState = digitalRead(pushButton); 
+  Serial.println(buttonState); 
+  delay(1); 
+}
+```
 
 ---
 
+# Potencjometr
+
+```c
+void setup() { 
+  Serial.begin(9600); 
+}
+
+void loop() { 
+  int sensorValue = analogRead(A0);
+  Serial.println(sensorValue);
+  delay(1);
+}
+```
+
+---
+
+# LED
+
+```c
+int ledPin = 13;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+  digitalWrite(ledPin, LOW);
+  delay(1000);
+}
+```
+
+---
+
+class: inverse
+
+# Zadania
+
+
+
+<div class="countdown" id="timer_098d5bbe" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+1. Z wykorzystaniem diody LED i czujnika ruchu, stwórz lampkę reagującą na ruch.
+
+2. Reguluj natężenie światła z wykorzystaniem potencjometru
+
+```
+int outputValue = map(sensorValue, 0, 1023, 0, 255);
+```
+
+3. Włącznik cyfrowy do diody LED
+
+---
+
+# Servo
+
+```c
+#include &lt;Servo.h&gt;
+
+int sensorPin = 3; // tilt sensor D3
+Servo myservo;
+int pos = 0;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(sensorPin, INPUT);
+  myservo.attach(9); // Servo – D9
+}
+```
+
+---
+
+# Servo
+
+```c
+void loop() {
+  int sensorState = digitalRead(sensorPin);
+  Serial.println(sensorState);
+  if (!sensorState) { //If the state is 0, The servo moves 2° 
+    pos = pos + 2;
+    if (pos &gt;= 180) {
+      pos = 180;
+    }
+    myservo.write(pos); //Write in rotation angle of the Servo
+    Serial.println(pos); // Print rotation angle in serial port
+    delay(100);
+  } else { // Else, the servo moves 2° less but not less than 0°.
+    pos = pos - 2;
+    if (pos &lt;= 0) {
+    pos = 0;
+    }
+  myservo.write(pos);
+  Serial.println(pos);
+  delay(100);
+  }
+  delay(1);
+}
+```
+
+---
+
+# Buzzer
+
+Funkcja `tone` przyjmuje trzy argumenty:
+
+- pin - numer pinu cyfrowego
+
+- frequency - częstotliwość tonu w Hz
+
+- duration - czas trwania tonu w milisekundach
+
+```c
+int buzzer = 6; 
+
+void setup() {
+pinMode(buzzer, OUTPUT);
+}
+void loop() {
+tone(buzzerPin, 300, 150); 
+delay(1000);
+}
+```
+
+---
+
+# Przykładowe projekty
+
+1. System alarmowy - czujnik ruchu, buzzer, dioda LED
+
+2. Zamek elektroniczny - przycisk, diody LED, buzzer
+
+3. Automatyczne rolety - servo, czujnik światła
 
 ---
 
