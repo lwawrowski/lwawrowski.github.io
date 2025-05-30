@@ -1,0 +1,163 @@
+---
+title: "Technologie Internetu Rzeczy"
+subtitle: "ThingSpeak"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "4:3"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+# Workflow
+
+Urządzenie $\rightarrow$ Broker MQTT $\rightarrow$ Node-red $\rightarrow$ Wizualizacja
+
+--
+
+Urządzenie $\rightarrow$ ThingSpeak $\rightarrow$ Wizualizacja
+
+---
+
+# [ThingSpeak](https://thingspeak.mathworks.com/)
+
+- Platforma IoT do zbierania, analizy i wizualizacji danych z urządzeń.
+
+- Należy do MathWorks (twórców MATLAB-a).
+
+- Obsługuje kanały, w których można zapisywać dane z czujników.
+
+- Wspiera HTTP, MQTT oraz REST API.
+
+- Możliwość przetwarzania danych z wykorzystaniem MATLAB code.
+
+- Przesyłanie nie tylko tekstu, ale także obrazu
+
+---
+
+# Arduino
+
+Można skorzystać z [REST API](https://www.mathworks.com/help/thingspeak/writedata.html) i samodzielnie składać zapytania.
+
+```c
+WiFiClient client;
+if (client.connect("api.thingspeak.com", 80)) {
+  String data = "api_key=YOUR_KEY&field1=25.5&field2=40";
+  client.print("POST /update HTTP/1.1\r\n");
+  client.print("Host: api.thingspeak.com\r\n");
+  client.print("Content-Type: application/x-www-form-urlencoded\r\n");
+  client.print("Content-Length: ");
+  client.print(data.length());
+  client.print("\r\n\r\n");
+  client.print(data);
+}
+```
+
+---
+
+# Arduino
+
+Biblioteka [ThingSpeak](https://docs.arduino.cc/libraries/thingspeak/)
+
+https://wokwi.com/projects/387512815271863297
+
+---
+
+# Przesyłanie danych
+
+Deklaracja CHANNEL_ID oraz CHANNEL_API_KEY
+
+```c
+#include <WiFi.h>
+#include "ThingSpeak.h"
+
+const char* WIFI_NAME = "Wokwi-GUEST"; // WiFi SSID
+const char* WIFI_PASSWORD = ""; // WiFI Password
+const int CHANNEL_ID = 0000000; // ThingSpeak channel number
+const char* CHANNEL_API_KEY = "ABCDE"; // ThingSpeak API key
+
+WiFiClient client;
+
+```
+
+---
+
+# Przesyłanie danych
+
+```c
+void setup(){
+
+// połączenie z WiFi
+
+ThingSpeak.begin(client)
+
+}
+```
+
+---
+
+# Przesyłanie danych
+
+Sposób 1
+
+```c
+void loop(){
+
+ThingSpeak.writeField(CHANNEL_ID, 1, temp, CHANNEL_API_KEY)
+ThingSpeak.writeField(CHANNEL_ID, 2, humd, CHANNEL_API_KEY)
+
+}
+
+```
+
+---
+
+# Przesyłanie danych
+
+Sposób 2
+
+```c
+void loop(){
+
+ThingSpeak.setField(1, temp)
+ThingSpeak.setField(2, humd)
+
+ThingSpeak.writeFields(CHANNEL_ID, CHANNEL_API_KEY)
+
+}
+
+```
+
+---
+
+# Ograniczenia ThingSpeak
+
+[Darmowe konto](https://thingspeak.mathworks.com/prices/thingspeak_home)
+
+- 4 kanały po 8 pól danych
+
+- 1 update co 15 sekund
+
+- 3 miliony wiadomości na rok (8200 dziennie)
+
+- 3 udostępnienia kanału
+
+- HTTP nie jest tak energooszczędny jak MQTT
+
+---
+
+# Dodatkowo
+
+[Gawęda o Smart Home](https://www.youtube.com/live/bLpdWHnMUqA)
+
+---
+
+class: center, middle, inverse
+
+# Pytania?
