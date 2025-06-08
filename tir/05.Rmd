@@ -112,6 +112,7 @@ output:
 - **Klienci testowi:**
   - [MQTT Explorer](https://mqtt-explorer.com/) (graficzny klient).  
   - CLI Mosquitto (narzędzie wiersza poleceń).  
+  - [HomeHabit](https://play.google.com/store/apps/details?id=app.homehabit.view&hl=pl) (aplikacja Android)
 - **Biblioteki programistyczne:**
   - Python: `paho-mqtt`.  
 

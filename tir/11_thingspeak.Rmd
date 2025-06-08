@@ -156,6 +156,8 @@ ThingSpeak.writeFields(CHANNEL_ID, CHANNEL_API_KEY)
 
 [Gawęda o Smart Home](https://www.youtube.com/watch?v=bLpdWHnMUqA)
 
+[Monitoring chomika](https://medium.com/@christian.marques/the-ultimate-hamster-monitoring-system-45ddec50009a)
+
 ---
 
 class: center, middle, inverse
